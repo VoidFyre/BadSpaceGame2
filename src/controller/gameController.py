@@ -1,4 +1,5 @@
-import pygame
+import pygame, sys
+from src.model.player import Player
 
 class GameController():
     def __init__(self, game_state, views, fps):
@@ -15,12 +16,15 @@ class GameController():
             self.game_clock.tick(self.FPS)
 
             while self.view_mode == "main":
-                self.main_menu_view.run()
+                self.run_main_menu()
                 if self.main_menu_view.get_button_pressed() == "play":
                     self.view_mode = "play"
 
             while self.view_mode == "play":
-                pass
+                self.run_game()
+                if self.game_state.pause == True:
+                    pygame.quit()
+                    sys.exit()
 
             while self.view_mode == "options":
                 pass
@@ -28,11 +32,13 @@ class GameController():
             while self.view_mode == "pause":
                 pass
 
+
     def run_game(self):
-        pass
+        self.game_state.update()
+        self.game_view.render()
 
     def run_main_menu(self):
-        pass
+        self.main_menu_view.run()
 
     def run_pause_menu(self):
         pass

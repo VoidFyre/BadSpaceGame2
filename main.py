@@ -14,14 +14,14 @@ class Main():
 
     def main(self):
         # Set up game state
-        game_state = GameState()
+        game_state = GameState(self.window_size)
 
         # Set up views
         FPS = 60
-        game_view = GameView(self.window)
+        game_view = GameView(self.window, game_state)
         main_menu_view = MainMenuView(self.window)
-        game_over_view = GameOverView(self.window)
-        pause_menu_view = PauseMenuView(self.window)
+        game_over_view = GameOverView(self.window, game_state)
+        pause_menu_view = PauseMenuView(self.window, game_state)
         views = (game_view, main_menu_view, game_over_view, pause_menu_view)
 
         # Set up controller
@@ -29,6 +29,7 @@ class Main():
 
         # Run game
         game_controller.run()
+        exit(0)
 
 if __name__ == "__main__":
     Main().main()
