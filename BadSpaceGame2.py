@@ -6,7 +6,7 @@ from src.view.gameOverView import GameOverView
 from src.view.pauseMenuView import PauseMenuView
 import pygame
 
-class Main():
+class BadSpaceGame2():
     def __init__(self):
         self.game_state = None
         self.window_size = (1000, 1000)
@@ -32,4 +32,4 @@ class Main():
         exit(0)
 
 if __name__ == "__main__":
-    Main().main()
+    BadSpaceGame2().main()
