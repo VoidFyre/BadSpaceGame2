@@ -21,7 +21,7 @@ class ObjectMovable():
         self.pos_y += self.speed
 
     def update(self):
-        if self.pos_y > self.window_height:
+        if self.pos_y > self.window_height or self.pos_y < 0:
             self.disabled = True
 
     def render(self, window):
