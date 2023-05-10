@@ -5,6 +5,8 @@ class MainMenuView():
     def __init__(self, window):
         self.window = window
         pygame.init()
+
+        # Setting up background images
         self.bg_1 = pygame.transform.scale(pygame.image.load("assets/interface/background/small_stars.png"), (1000, 1000)).convert_alpha()
         self.bg_2 = pygame.transform.scale(pygame.image.load("assets/interface/background/large_stars.png"), (1000, 1000)).convert_alpha()
         self.bg_3 = pygame.transform.scale(pygame.image.load("assets/interface/background/space_clouds_1.png"), (1000, 1000)).convert_alpha()
@@ -101,7 +103,7 @@ class MainMenuView():
                                 hovering_image = hovering_button_image,
                                 pos = (500, 500),
                                 text_input = "OPTIONS",
-                                font = self.get_font(50),
+                                font = self.get_font(30),
                                 base_color = "Black",
                                 hovering_color = "White")
         
@@ -109,7 +111,7 @@ class MainMenuView():
                                 hovering_image = hovering_button_image,
                                 pos = (500, 650),
                                 text_input = "QUIT",
-                                font = self.get_font(50),
+                                font = self.get_font(30),
                                 base_color = "Black",
                                 hovering_color = "White")
 

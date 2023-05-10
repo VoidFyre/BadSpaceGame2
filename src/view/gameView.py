@@ -66,7 +66,7 @@ class GameView():
             self.scroll_5 = 0
 
 
-    def render(self):
+    def run(self):
         self.draw_background()
         self.game_state.player.render(self.window)
 

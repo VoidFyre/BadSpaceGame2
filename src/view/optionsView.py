@@ -1,10 +1,10 @@
 import pygame, sys
 from src.model.button import Button
 
-class PauseMenuView():
-    def __init__(self, window, game_state):
+class OptionsView():
+    def __init__(self, window, options):
         self.window = window
-        self.game_state = game_state
+        self.options = options
         pygame.init()
 
         # Setting up background images
@@ -78,8 +78,10 @@ class PauseMenuView():
         if abs(self.scroll_5) > self.bg_5.get_height():
             self.scroll_5 = 0
 
+
+
     def run(self):
-        pygame.display.set_caption("Bad Things From Outer Space: The Game 2 PAUSED")
+        pygame.display.set_caption("Bad Things From Outer Space: The Game 2 OPTIONS")
 
         pygame.mouse.set_visible(False)
         
@@ -90,39 +92,33 @@ class PauseMenuView():
         base_button_image = pygame.transform.scale(pygame.image.load("assets/interface/button/button_long.png"), (300, 100))
         hovering_button_image = pygame.transform.scale(pygame.image.load("assets/interface/button/button_long_hovering.png"), (300, 100))
 
-        resume_button = Button(base_image = base_button_image,
+        back_button = Button(base_image = base_button_image,
                                 hovering_image = hovering_button_image,
-                                pos = (200, 350),
-                                text_input = "RESUME",
+                                pos = (500, 350),
+                                text_input = "BACK",
                                 font = self.get_font(30),
                                 base_color = "Black",
                                 hovering_color = "White")
         
-        restart_button = Button(base_image = base_button_image,
-                                hovering_image = hovering_button_image,
-                                pos = (200, 500),
-                                text_input = "RESTART",
-                                font = self.get_font(30),
-                                base_color = "Black",
-                                hovering_color = "White")
-        
-        options_button = Button(base_image = base_button_image,
-                                hovering_image = hovering_button_image,
-                                pos = (200, 650),
-                                text_input = "OPTIONS",
-                                font = self.get_font(30),
-                                base_color = "Black",
-                                hovering_color = "White")
-        
-        main_menu_button = Button(base_image = base_button_image,
-                                hovering_image = hovering_button_image,
-                                pos = (200, 800),
-                                text_input = "MAIN MENU",
-                                font = self.get_font(30),
-                                base_color = "Black",
-                                hovering_color = "White")
+        if self.options.music_enabled:
+            music_button = Button(base_image = base_button_image,
+                                    hovering_image = hovering_button_image,
+                                    pos = (500, 500),
+                                    text_input = "MUSIC ON",
+                                    font = self.get_font(30),
+                                    base_color = "Black",
+                                    hovering_color = "White")
+            
+        else :
+            music_button = Button(base_image = base_button_image,
+                                    hovering_image = hovering_button_image,
+                                    pos = (500, 500),
+                                    text_input = "MUSIC OFF",
+                                    font = self.get_font(30),
+                                    base_color = "Black",
+                                    hovering_color = "White")
 
-        for button in [resume_button, restart_button, options_button, main_menu_button]:
+        for button in [back_button, music_button]:
             button.changeColor(menu_mouse_pos)
             button.update(self.window)
 
@@ -137,16 +133,16 @@ class PauseMenuView():
                 sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if resume_button.checkForInput(menu_mouse_pos):
-                    self.button_pressed = "resume"
+                if back_button.checkForInput(menu_mouse_pos):
+                    self.button_pressed = "back"
+                    self.options.write_options()
 
-                if restart_button.checkForInput(menu_mouse_pos):
-                    self.button_pressed = "restart"
-
-                if options_button.checkForInput(menu_mouse_pos):
-                    pass
-
-                if main_menu_button.checkForInput(menu_mouse_pos):
-                    self.button_pressed = "main"
+                if music_button.checkForInput(menu_mouse_pos):
+                    if self.options.music_enabled:
+                        self.options.music_enabled = False
+                        pygame.mixer.music.pause()
+                    else:
+                        self.options.music_enabled = True
+                        pygame.mixer.music.unpause()
 
         pygame.display.update()
