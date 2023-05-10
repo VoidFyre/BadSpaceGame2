@@ -2,7 +2,7 @@ import pygame, sys
 from src.model.player import Player
 
 class GameController():
-    def __init__(self, game_state, views, fps):
+    def __init__(self, game_state, views: list, fps: int):
         self.FPS = fps
         self.game_state = game_state
         self.game_view, self.main_menu_view, self.game_over_view, self.pause_menu_view = views

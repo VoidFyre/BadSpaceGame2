@@ -15,6 +15,9 @@ class GameView():
         self.scroll_4 = 0
         self.scroll_5 = 0
 
+    def get_font(self, size):
+        return pygame.font.Font("assets/interface/font/joystix.otf", size)
+
     def draw_background(self):
         i = 0
         while i < 2:
@@ -66,6 +69,14 @@ class GameView():
     def render(self):
         self.draw_background()
         self.game_state.player.render(self.window)
+
         for obj in self.game_state.objs:
             obj.render(self.window)
+
+        font = self.get_font(20)
+        ammo_counter = font.render("Ammo: " + str(self.game_state.player.secondary_weapon.ammo), True, "White")
+        ammo_counter_rect = ammo_counter.get_rect(center = (900, 950))
+
+        self.window.blit(ammo_counter, ammo_counter_rect)
+        
         pygame.display.update()

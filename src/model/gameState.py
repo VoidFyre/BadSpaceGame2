@@ -2,16 +2,14 @@ from src.model.player import Player
 import pygame
 
 class GameState():
-    def __init__(self, window_size):
-        self.player = Player(500, 900)
+    def __init__(self, window_size: tuple):
+        self.player = Player(500, 900, window_size)
         self.objs = []
         self.player_kills = 0
         self.player_score = 0
         self.wave_counter = 0
         self.window_width = window_size[0]
         self.window_height = window_size[1]
-        self.player.window_height = self.window_height
-        self.player.window_width = self.window_width
         self.pause = False
 
     def get_input(self):
@@ -31,13 +29,23 @@ class GameState():
             self.player.move_down()
 
         if mouse[0]:
-            self.player.shoot_primary()
+            proj = self.player.shoot_primary()
+            if proj is not None:
+                self.objs.append(proj)
 
         if mouse[2]:
-            self.player.shoot_secondary()
+            proj = self.player.shoot_secondary()
+            if proj is not None:
+                self.objs.append(proj)
 
         if keys[pygame.K_ESCAPE]:
             self.pause = True
 
     def update(self):
         self.get_input()
+        self.player.update()
+        for obj in self.objs:
+            obj.update()
+            if obj.disabled:
+                if obj in self.objs:
+                    self.objs.remove(obj)
