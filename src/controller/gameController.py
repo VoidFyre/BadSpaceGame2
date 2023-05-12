@@ -14,10 +14,11 @@ class GameController():
         self.options = options
 
     def reset(self):
-        self.game_state.__init__((self.game_state.window_width, self.game_state.window_height))
+        self.game_state.__init__((self.game_state.window_width, self.game_state.window_height), self.channel)
 
     def run(self):
         pygame.mixer.music.set_volume(self.options.volume)
+        self.channel.set_volume(self.options.volume)
         pygame.mixer.music.load(self.music)
         pygame.mixer.music.play(-1)
 
@@ -54,6 +55,7 @@ class GameController():
         if self.main_menu_view.button_pressed == "play":
             self.main_menu_view.button_pressed = None
             self.view_mode = "play"
+            
         if self.main_menu_view.button_pressed == "options":
             self.main_menu_view.button_pressed = None
             self.view_mode = "options"

@@ -18,17 +18,18 @@ class BadSpaceGame2():
 
     def main(self):
         # Set up game state, options, and sound
-        game_state = GameState(self.window_size)
-        options = Options()
         channel = pygame.mixer.find_channel(True)
         channel.set_volume(1.0)
+        game_state = GameState(self.window_size, channel)
+        options = Options()
+        
         # Set up views
         FPS = 60
         game_view = GameView(self.window, game_state)
-        options_view = OptionsView(self.window, options)
-        main_menu_view = MainMenuView(self.window)
-        game_over_view = GameOverView(self.window, game_state)
-        pause_menu_view = PauseMenuView(self.window, game_state)
+        options_view = OptionsView(self.window, options, channel)
+        main_menu_view = MainMenuView(self.window, channel)
+        game_over_view = GameOverView(self.window, game_state, channel)
+        pause_menu_view = PauseMenuView(self.window, game_state, channel)
         views = (game_view, main_menu_view, game_over_view, pause_menu_view, options_view)
 
         # Set up controller

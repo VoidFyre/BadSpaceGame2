@@ -2,9 +2,10 @@ import pygame, sys
 from src.model.button import Button
 
 class PauseMenuView():
-    def __init__(self, window, game_state):
+    def __init__(self, window, game_state, channel):
         self.window = window
         self.game_state = game_state
+        self.channel = channel
         pygame.init()
 
         # Setting up background images
@@ -21,6 +22,8 @@ class PauseMenuView():
         self.scroll_3 = 0
         self.scroll_4 = 0
         self.scroll_5 = 0
+
+        self.button_sound = pygame.mixer.Sound("assets/sound/button_press.ogg")
 
     def get_button_pressed(self):
         pressed = self.button_pressed
@@ -138,15 +141,19 @@ class PauseMenuView():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if resume_button.checkForInput(menu_mouse_pos):
+                    self.channel.play(self.button_sound)
                     self.button_pressed = "resume"
 
                 if restart_button.checkForInput(menu_mouse_pos):
+                    self.channel.play(self.button_sound)
                     self.button_pressed = "restart"
 
                 if options_button.checkForInput(menu_mouse_pos):
+                    self.channel.play(self.button_sound)
                     pass
 
                 if main_menu_button.checkForInput(menu_mouse_pos):
+                    self.channel.play(self.button_sound)
                     self.button_pressed = "main"
 
         pygame.display.update()

@@ -2,8 +2,9 @@ import pygame, sys, math
 from src.model.button import Button
 
 class MainMenuView():
-    def __init__(self, window):
+    def __init__(self, window, channel):
         self.window = window
+        self.channel = channel
         pygame.init()
 
         # Setting up background images
@@ -20,6 +21,7 @@ class MainMenuView():
         self.scroll_3 = 0
         self.scroll_4 = 0
         self.scroll_5 = 0
+        self.button_sound = pygame.mixer.Sound("assets/sound/button_press.ogg")
 
     def get_button_pressed(self):
         pressed = self.button_pressed
@@ -93,7 +95,7 @@ class MainMenuView():
 
         play_button = Button(base_image = base_button_image,
                                 hovering_image = hovering_button_image,
-                                pos = (500, 350),
+                                pos = (200, 350),
                                 text_input = "PLAY",
                                 font = self.get_font(50),
                                 base_color = "Black",
@@ -101,7 +103,7 @@ class MainMenuView():
         
         options_button = Button(base_image = base_button_image,
                                 hovering_image = hovering_button_image,
-                                pos = (500, 500),
+                                pos = (200, 500),
                                 text_input = "OPTIONS",
                                 font = self.get_font(30),
                                 base_color = "Black",
@@ -109,7 +111,7 @@ class MainMenuView():
         
         quit_button = Button(base_image = base_button_image,
                                 hovering_image = hovering_button_image,
-                                pos = (500, 650),
+                                pos = (200, 650),
                                 text_input = "QUIT",
                                 font = self.get_font(30),
                                 base_color = "Black",
@@ -131,9 +133,11 @@ class MainMenuView():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if play_button.checkForInput(menu_mouse_pos):
+                    self.channel.play(self.button_sound)
                     self.button_pressed = "play"
 
                 if options_button.checkForInput(menu_mouse_pos):
+                    self.channel.play(self.button_sound)
                     self.button_pressed = "options"
 
                 if quit_button.checkForInput(menu_mouse_pos):

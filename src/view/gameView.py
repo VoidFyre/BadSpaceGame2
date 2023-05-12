@@ -70,13 +70,33 @@ class GameView():
         self.draw_background()
         self.game_state.player.render(self.window)
 
-        for obj in self.game_state.objs:
-            obj.render(self.window)
+        for proj in self.game_state.projectiles:
+            proj.render(self.window)
+
+        for enemy in self.game_state.enemies:
+            enemy.render(self.window)
+
+        for explosion in self.game_state.explosions:
+            explosion.render(self.window)
+
+        for health_pack in self.game_state.health_packs:
+            health_pack.render(self.window)
+
+        for ammo_pack in self.game_state.ammo_packs:
+            ammo_pack.render(self.window)
 
         font = self.get_font(20)
         ammo_counter = font.render("Ammo: " + str(self.game_state.player.secondary_weapon.ammo) + "/" + str(self.game_state.player.secondary_weapon.max_ammo), True, "White")
         ammo_counter_rect = ammo_counter.get_rect(center = (900, 950))
 
+        wave_display = font.render("Wave: " + str(self.game_state.wave_counter), True, "White")
+        wave_display_rect = wave_display.get_rect(center = (900, 50))
+
+        remaining_enemies = font.render("Enemies: " + str(len(self.game_state.enemies)), True, "White")
+        remaining_enemies_rect = remaining_enemies.get_rect(center = (900, 80))
+
         self.window.blit(ammo_counter, ammo_counter_rect)
+        self.window.blit(wave_display, wave_display_rect)
+        self.window.blit(remaining_enemies, remaining_enemies_rect)
         
         pygame.display.update()

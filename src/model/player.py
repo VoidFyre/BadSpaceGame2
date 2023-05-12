@@ -5,7 +5,6 @@ from src.model.weaponSecondary import WeaponSecondary
 
 class Player(ObjectMovable):
     def __init__(self, pos_x, pos_y, window_size: tuple):
-        super().__init__(pos_x, pos_y, 5, None, window_size)
         self.health_cur = 100
         self.health_max = 100
         self.window_width = window_size[0]
@@ -14,29 +13,32 @@ class Player(ObjectMovable):
         self.secondary_cd = 100
         self.window_size = window_size
         self.primary_weapon = Weapon(
-            img = pygame.transform.scale(pygame.image.load("assets/component/primary/weapon/primary_common.png"), (100, 100)),
-            proj_img = pygame.transform.scale(pygame.image.load("assets/component/primary/projectile/projectile_primary_common.png"), (30, 30)),
+            img = self.load_image("assets/component/primary/weapon/primary_common.png", (100, 100)),
+            proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_common.png", (30, 30)),
             proj_speed = 10,
-            damage = 10,
-            cooldown = 40,
+            damage = 100,
+            cooldown = 15,
             window_size = self.window_size,
             sound = None
         )
         self.secondary_weapon = WeaponSecondary(
-            img = pygame.transform.scale(pygame.image.load("assets/component/secondary/weapon/secondary_common.png"), (100, 100)),
-            proj_img = pygame.transform.scale(pygame.image.load("assets/component/secondary/projectile/projectile_secondary_common.png"), (30, 30)),
-            proj_exp_img = pygame.transform.scale(pygame.image.load("assets/component/secondary/explosion/explosion_secondary_common.png"), (20, 20)),
-            proj_speed = 10,
+            img = self.load_image("assets/component/secondary/weapon/secondary_common.png", (100, 100)),
+            proj_img = self.load_image("assets/component/secondary/projectile/projectile_secondary_common.png", (30, 30)),
+            proj_exp_img = self.load_image("assets/component/secondary/explosion/explosion_secondary_common.png", (500, 500)),
+            proj_speed = 12,
             damage = 5,
             cooldown = 180,
             ammo = 10,
             max_ammo = 10,
             window_size = self.window_size,
             sound = None,
-            expl_sound = None
+            exp_sound = pygame.mixer.Sound("assets/sound/explosion.wav"),
+            exp_dmg = 200
         )
         self.thruster = None
-        self.img = pygame.transform.scale(pygame.image.load("assets/component/ship/ship_common.png"), (100, 100))
+        self.img = self.load_image("assets/component/ship/ship_common.png", (100, 100))
+
+        super().__init__(pos_x, pos_y, 5, self.img, window_size)
 
     def move_left(self):
         if self.pos_x - self.speed > 0:
@@ -79,3 +81,8 @@ class Player(ObjectMovable):
         self.primary_weapon.render(window)
         self.secondary_weapon.render(window)
         # self.thruster.render()
+        self.healthbar(window)
+
+    def healthbar(self, window):
+        pygame.draw.rect(window, (255,0,0), (self.pos_x, self.pos_y + self.img.get_height() + 10, self.img.get_width(), 10))
+        pygame.draw.rect(window, (0,255,0), (self.pos_x, self.pos_y + self.img.get_height() + 10, self.img.get_width() * (self.health_cur/self.health_max), 10))
