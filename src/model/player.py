@@ -42,16 +42,16 @@ class Player(ObjectMovable):
         if self.pos_y + self.speed + self.img.get_width() < self.window_height:
             self.pos_y += self.speed
 
-    def shoot_primary(self, channel):
+    def shoot_primary(self):
         if self.primary_cd == 0:
             self.primary_cd = self.primary_weapon.cooldown
-            channel.play(self.primary_weapon.sound)
+            self.primary_weapon.sound.play()
             return self.primary_weapon.shoot()
 
-    def shoot_secondary(self, channel):
+    def shoot_secondary(self):
         if self.secondary_cd == 0:
             self.secondary_cd = self.secondary_weapon.cooldown
-            channel.play(self.secondary_weapon.sound)
+            self.secondary_weapon.sound.play()
             return self.secondary_weapon.shoot()
     
     def update(self):

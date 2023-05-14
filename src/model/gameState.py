@@ -48,12 +48,12 @@ class GameState():
             self.player.move_down()
 
         if mouse[0]:
-            proj = self.player.shoot_primary(self.channel)
+            proj = self.player.shoot_primary()
             if proj is not None:
                 self.projectiles.append(proj)
 
         if mouse[2]:
-            proj = self.player.shoot_secondary(self.channel)
+            proj = self.player.shoot_secondary()
             if proj is not None:
                 self.projectiles.append(proj)
 
@@ -110,18 +110,18 @@ class GameState():
 
             elif proj.owner == "enemy":
                 if proj.collision(self.player):
-                    self.channel.play(self.hit)
+                    self.hit.play()
                     self.player.health_cur -= proj.damage
                     proj.disabled = True
                     
             elif proj.owner == "player":
                 for enemy in self.enemies:
                     if proj.collision(enemy):
-                        self.channel.play(self.hit)
+                        self.hit.play()
                         enemy.health_cur -= proj.damage
                         proj.disabled = True
                         if isinstance(proj, ProjectileExploding):
-                            self.channel.play(proj.exp_sound)
+                            proj.exp_sound.play()
                             self.explosions.append(proj.explode())
 
     def explosion_enemy_collision_check(self):
@@ -161,7 +161,7 @@ class GameState():
                 else:
                     self.player.health_cur = self.player.health_max
 
-                self.channel.play(health_pack.sound)
+                health_pack.sound.play()
                 health_pack.disabled = True
 
     def update_ammo_packs(self):
@@ -172,7 +172,7 @@ class GameState():
                     self.ammo_packs.remove(ammo_pack)
             elif ammo_pack.collision(self.player):
                 self.player.secondary_weapon.ammo = self.player.secondary_weapon.max_ammo
-                self.channel.play(ammo_pack.sound)
+                ammo_pack.sound.play()
                 ammo_pack.disabled = True
 
     def update_upgrades(self):
@@ -182,7 +182,7 @@ class GameState():
                 if upgrade in self.upgrades:
                     self.upgrades.remove(upgrade)
             elif upgrade.collision(self.player):
-                self.channel.play(upgrade.sound)
+                upgrade.sound.play()
                 upgrade.random_upgrade(self.player)
                 upgrade.disabled = True
 
