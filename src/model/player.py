@@ -1,43 +1,29 @@
 import pygame
 from src.model.objectMovable import ObjectMovable
-from src.model.weapon import Weapon
-from src.model.weaponSecondary import WeaponSecondary
+from src.model.component import Component
 
 class Player(ObjectMovable):
     def __init__(self, pos_x, pos_y, window_size: tuple):
-        self.health_cur = 100
-        self.health_max = 100
+        self.component = Component(window_size)
+        
         self.window_width = window_size[0]
         self.window_height = window_size[1]
         self.primary_cd = 100
         self.secondary_cd = 100
         self.window_size = window_size
-        self.primary_weapon = Weapon(
-            img = self.load_image("assets/component/primary/weapon/primary_common.png", (100, 100)),
-            proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_common.png", (30, 30)),
-            proj_speed = 10,
-            damage = 100,
-            cooldown = 15,
-            window_size = self.window_size,
-            sound = None
-        )
-        self.secondary_weapon = WeaponSecondary(
-            img = self.load_image("assets/component/secondary/weapon/secondary_common.png", (100, 100)),
-            proj_img = self.load_image("assets/component/secondary/projectile/projectile_secondary_common.png", (30, 30)),
-            proj_exp_img = self.load_image("assets/component/secondary/explosion/explosion_secondary_common.png", (500, 500)),
-            proj_speed = 12,
-            damage = 5,
-            cooldown = 180,
-            ammo = 10,
-            max_ammo = 10,
-            window_size = self.window_size,
-            sound = None,
-            exp_sound = pygame.mixer.Sound("assets/sound/explosion.wav"),
-            exp_dmg = 200
-        )
-        self.thruster = None
-        self.img = self.load_image("assets/component/ship/ship_common.png", (100, 100))
+        self.primary_rarity = "common"
+        self.secondary_rarity = "common"
+        self.ship_rarity = "common"
+        self.thruster_rarity = "common"
+        self.img, self.health_max = self.component.get_ship(self.ship_rarity)
+        self.primary_weapon = self.component.get_primary(self.primary_rarity)
+        self.secondary_weapon = self.component.get_secondary(self.secondary_rarity)
 
+        self.thruster = None
+        
+
+        
+        self.health_cur = self.health_max
         super().__init__(pos_x, pos_y, 5, self.img, window_size)
 
     def move_left(self):
@@ -56,14 +42,16 @@ class Player(ObjectMovable):
         if self.pos_y + self.speed + self.img.get_width() < self.window_height:
             self.pos_y += self.speed
 
-    def shoot_primary(self):
+    def shoot_primary(self, channel):
         if self.primary_cd == 0:
             self.primary_cd = self.primary_weapon.cooldown
+            channel.play(self.primary_weapon.sound)
             return self.primary_weapon.shoot()
 
-    def shoot_secondary(self):
+    def shoot_secondary(self, channel):
         if self.secondary_cd == 0:
             self.secondary_cd = self.secondary_weapon.cooldown
+            channel.play(self.secondary_weapon.sound)
             return self.secondary_weapon.shoot()
     
     def update(self):
@@ -72,6 +60,10 @@ class Player(ObjectMovable):
 
         if self.secondary_cd > 0:
             self.secondary_cd -= 1
+
+        self.img, self.health_max = self.component.get_ship(self.ship_rarity)
+        self.primary_weapon = self.component.get_primary(self.primary_rarity)
+        self.secondary_weapon = self.component.get_secondary(self.secondary_rarity)
 
         self.primary_weapon.update((self.pos_x, self.pos_y))
         self.secondary_weapon.update((self.pos_x, self.pos_y))

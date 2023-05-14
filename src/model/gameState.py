@@ -3,6 +3,7 @@ from src.model.projectileExploding import ProjectileExploding
 from src.model.enemy import Enemy
 from src.model.healthPack import HealthPack
 from src.model.ammoPack import AmmoPack
+from src.model.upgrade import Upgrade
 import math
 import pygame
 import random
@@ -15,6 +16,7 @@ class GameState():
         self.explosions = []
         self.health_packs = []
         self.ammo_packs = []
+        self.upgrades = []
         self.player_kills = 0
         self.player_score = 0
         self.wave_counter = 0
@@ -27,6 +29,7 @@ class GameState():
         self.pause = False
         self.wave_spawned = False
         self.channel = channel
+        self.hit = pygame.mixer.Sound("assets/sound/hit.wav")
 
     def get_input(self):
         pygame.event.pump()
@@ -45,12 +48,12 @@ class GameState():
             self.player.move_down()
 
         if mouse[0]:
-            proj = self.player.shoot_primary()
+            proj = self.player.shoot_primary(self.channel)
             if proj is not None:
                 self.projectiles.append(proj)
 
         if mouse[2]:
-            proj = self.player.shoot_secondary()
+            proj = self.player.shoot_secondary(self.channel)
             if proj is not None:
                 self.projectiles.append(proj)
 
@@ -107,12 +110,14 @@ class GameState():
 
             elif proj.owner == "enemy":
                 if proj.collision(self.player):
+                    self.channel.play(self.hit)
                     self.player.health_cur -= proj.damage
                     proj.disabled = True
                     
             elif proj.owner == "player":
                 for enemy in self.enemies:
                     if proj.collision(enemy):
+                        self.channel.play(self.hit)
                         enemy.health_cur -= proj.damage
                         proj.disabled = True
                         if isinstance(proj, ProjectileExploding):
@@ -134,12 +139,15 @@ class GameState():
                 
                 explosion.removeTime = True
 
-    def drop_item(self, pos_x, pos_y):
+    def drop_item(self, pos_x, pos_y, rarity):
         rand_num = random.randint(0, 100)
-        if rand_num < 40:
+        if rand_num >= 40 and rand_num < 60:
             self.health_packs.append(HealthPack(pos_x, pos_y, self.window_size))
-        if rand_num >= 40 and rand_num < 70:
+        if rand_num >= 60 and rand_num < 80:
             self.ammo_packs.append(AmmoPack(pos_x, pos_y, self.window_size))
+        if rand_num >= 80:
+            if rarity != "common":
+                self.upgrades.append(Upgrade(pos_x, pos_y, self.window_size, rarity))
 
     def update_health_packs(self):
         for health_pack in self.health_packs:
@@ -152,6 +160,8 @@ class GameState():
                     self.player.health_cur += self.player.health_max/5
                 else:
                     self.player.health_cur = self.player.health_max
+
+                self.channel.play(health_pack.sound)
                 health_pack.disabled = True
 
     def update_ammo_packs(self):
@@ -162,13 +172,25 @@ class GameState():
                     self.ammo_packs.remove(ammo_pack)
             elif ammo_pack.collision(self.player):
                 self.player.secondary_weapon.ammo = self.player.secondary_weapon.max_ammo
+                self.channel.play(ammo_pack.sound)
                 ammo_pack.disabled = True
+
+    def update_upgrades(self):
+        for upgrade in self.upgrades:
+            upgrade.update()
+            if upgrade.disabled:
+                if upgrade in self.upgrades:
+                    self.upgrades.remove(upgrade)
+            elif upgrade.collision(self.player):
+                self.channel.play(upgrade.sound)
+                upgrade.random_upgrade(self.player)
+                upgrade.disabled = True
 
     def update_enemies(self):
         for enemy in self.enemies:
             enemy.update()
             if enemy.health_cur <= 0:
-                self.drop_item(enemy.pos_x, enemy.pos_y)
+                self.drop_item(enemy.pos_x, enemy.pos_y, enemy.rarity)
                 enemy.disabled = True
             if enemy.cooldown <= 0:
                 randint = random.randint(0, 100)
@@ -193,7 +215,8 @@ class GameState():
         self.projectile_enemy_collision_check()
         self.explosion_enemy_collision_check()
         self.update_enemies()
-
+        
+        self.update_upgrades()
         self.update_health_packs()
         self.update_ammo_packs()
         

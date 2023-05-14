@@ -85,6 +85,9 @@ class GameView():
         for ammo_pack in self.game_state.ammo_packs:
             ammo_pack.render(self.window)
 
+        for upgrade in self.game_state.upgrades:
+            upgrade.render(self.window)
+
         font = self.get_font(20)
         ammo_counter = font.render("Ammo: " + str(self.game_state.player.secondary_weapon.ammo) + "/" + str(self.game_state.player.secondary_weapon.max_ammo), True, "White")
         ammo_counter_rect = ammo_counter.get_rect(center = (900, 950))

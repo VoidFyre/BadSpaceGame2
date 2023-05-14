@@ -10,6 +10,7 @@ class ObjectMovable():
         self.speed = speed
         self.img = img
         self.disabled = False
+        self.window_size = window_size
         self.window_width = window_size[0]
         self.window_height = window_size[1]
         self.mask = pygame.mask.from_surface(self.img)

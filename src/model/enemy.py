@@ -9,7 +9,7 @@ class Enemy(ObjectMovable):
         self.wave = wave
         self.window_size = window_size
         self.cooldown = 0
-        self.pos_y_stop = random.randint(400, 700)
+        self.pos_y_stop = random.randint(300, 550)
         self.pos_x_left = pos_x - random.randint(30, 70)
         self.pos_x_right = pos_x + random.randint(30, 70)
         self.direction = "left"
