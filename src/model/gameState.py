@@ -19,10 +19,13 @@ class GameState():
         self.player_score = 0
         self.wave_counter = 0
         self.wave_length = 0
+        self.wave_delay = 0
+        self.enemies_spawned = 0
         self.window_size = window_size
         self.window_width = window_size[0]
         self.window_height = window_size[1]
         self.pause = False
+        self.wave_spawned = False
         self.channel = channel
 
     def get_input(self):
@@ -58,10 +61,23 @@ class GameState():
         return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
     def spawn_enemy(self):
-        if len(self.enemies) == 0:
-            self.wave_counter += 1
-            self.wave_length += 1
-            while len(self.enemies) < self.wave_length:
+        if len(self.enemies) == 0 and self.wave_spawned:
+            if self.wave_delay > 0:
+                self.wave_delay -= 1
+
+            else:
+                self.enemies_spawned = 0
+                self.wave_spawned = False
+                self.wave_delay = 120
+                self.wave_counter += 1
+                self.wave_length += 1
+
+        elif not self.wave_spawned:
+
+            if self.enemies_spawned == self.wave_length:
+                self.wave_spawned = True
+
+            while self.enemies_spawned < self.wave_length:
                 if self.wave_counter < 5:
                     rarity = random.choice(["common", "uncommon"])
                 if self.wave_counter >= 5 and self.wave_counter < 10:
@@ -71,13 +87,15 @@ class GameState():
                 if self.wave_counter >= 15:
                     rarity = random.choice(["common", "uncommon", "rare", "epic", "legendary"])
 
-                enemy = Enemy(random.randrange(100, 850), random.randrange(-300, -100), 2, self.window_size, rarity, self.wave_counter)
+                enemy = Enemy(random.randrange(100, 850), random.randrange(-400, -100), 2, self.window_size, rarity, self.wave_counter)
                 is_valid_pos = True
                 for existing_enemy in self.enemies:
-                    if self.get_distance(existing_enemy.pos_x, existing_enemy.pos_y, enemy.pos_x, enemy.pos_y) < 100:
+                    if self.get_distance(existing_enemy.pos_x, existing_enemy.pos_y, enemy.pos_x, enemy.pos_y) < 200:
                         is_valid_pos = False
+                        return
 
                 if is_valid_pos:
+                    self.enemies_spawned += 1
                     self.enemies.append(enemy)
 
     def projectile_enemy_collision_check(self):
