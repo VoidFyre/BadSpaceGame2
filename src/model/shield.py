@@ -44,4 +44,4 @@ class Shield():
 
     def render(self, window):
         if self.active:
-            window.blit(self.img, (self.pos_x, self.pos_y))
+            window.blit(self.img, (self.pos_x - 10, self.pos_y - 10))

@@ -184,23 +184,23 @@ class Component():
 
         self.shields = {
             "common": Shield(
-                img = self.load_image("assets/component/shield/shield_common.png", (75, 75)),
+                img = self.load_image("assets/component/shield/shield_common.png", (95, 95)),
                 health = 50
             ),
             "uncommon": Shield(
-                img = self.load_image("assets/component/shield/shield_uncommon.png", (75, 75)),
+                img = self.load_image("assets/component/shield/shield_uncommon.png", (95, 95)),
                 health = 100
             ),
             "rare": Shield(
-                img = self.load_image("assets/component/shield/shield_rare.png", (75, 75)),
+                img = self.load_image("assets/component/shield/shield_rare.png", (95, 95)),
                 health = 150
             ),
             "epic": Shield(
-                img = self.load_image("assets/component/shield/shield_epic.png", (75, 75)),
+                img = self.load_image("assets/component/shield/shield_epic.png", (95, 95)),
                 health = 250
             ),
             "legendary": Shield(
-                img = self.load_image("assets/component/shield/shield_legendary.png", (75, 75)),
+                img = self.load_image("assets/component/shield/shield_legendary.png", (95, 95)),
                 health = 400
             ),
         }

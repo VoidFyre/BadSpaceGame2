@@ -137,6 +137,12 @@ class GameState():
 
                 explosion.active = False
 
+    def player_enemy_collision_check(self):
+        for enemy in self.enemies:
+            if enemy.collision(self.player):
+                self.player.hit(self.player.health_max / 2)
+                enemy.hit(enemy.health_max)
+
     def drop_item(self, pos_x, pos_y, rarity):
         rand_num = random.randint(0, 100)
         if rand_num >= 40 and rand_num < 60:
@@ -214,7 +220,9 @@ class GameState():
 
             self.projectile_enemy_collision_check()
             self.explosion_enemy_collision_check()
+            self.player_enemy_collision_check()
             self.update_enemies()
+
             
             self.update_upgrades()
             self.update_health_packs()
