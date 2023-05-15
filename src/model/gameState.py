@@ -9,7 +9,8 @@ import pygame
 import random
 
 class GameState():
-    def __init__(self, window_size: tuple, channel):
+    def __init__(self, window_size: tuple, scores):
+        self.scores = scores
         self.player = Player(500, 900, window_size)
         self.enemies = []
         self.projectiles = []
@@ -17,7 +18,6 @@ class GameState():
         self.health_packs = []
         self.ammo_packs = []
         self.upgrades = []
-        self.player_kills = 0
         self.player_score = 0
         self.wave_counter = 0
         self.wave_length = 0
@@ -28,7 +28,6 @@ class GameState():
         self.window_height = window_size[1]
         self.pause = False
         self.wave_spawned = False
-        self.channel = channel
         self.game_lost = False
         self.game_start_timer = 180
 
@@ -190,6 +189,18 @@ class GameState():
                 upgrade.random_upgrade(self.player)
                 upgrade.disabled = True
 
+    def update_score(self, rarity):
+        if rarity == "common":
+            self.player_score += 1 * self.wave_counter
+        if rarity == "uncommon":
+            self.player_score += 2 * self.wave_counter
+        if rarity == "rare":
+            self.player_score += 3 * self.wave_counter
+        if rarity == "epic":
+            self.player_score += 4 * self.wave_counter
+        if rarity == "legendary":
+            self.player_score += 5 * self.wave_counter
+
     def update_enemies(self):
         for enemy in self.enemies:
             enemy.update()
@@ -203,6 +214,7 @@ class GameState():
             else:
                 enemy.cooldown -= 1
             if enemy.disabled:
+                self.update_score(enemy.rarity)
                 self.drop_item(enemy.pos_x, enemy.pos_y, enemy.rarity)
                 self.explosions.append(enemy.death())
                 if enemy in self.enemies:
@@ -222,9 +234,10 @@ class GameState():
             self.explosion_enemy_collision_check()
             self.player_enemy_collision_check()
             self.update_enemies()
-
-            
             self.update_upgrades()
             self.update_health_packs()
             self.update_ammo_packs()
+
+            if self.game_lost:
+                self.scores.write_scores(self.player_score)
         

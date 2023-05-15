@@ -67,6 +67,7 @@ class GameView():
 
 
     def run(self):
+        pygame.display.set_caption("Bad Things From Outer Space: The Game 2")
         self.draw_background()
         self.game_state.player.render(self.window)
 
@@ -117,9 +118,13 @@ class GameView():
         shield_status = font.render("Shield: " + self.game_state.player.shield.status, True, "White")
         shield_status_rect = remaining_enemies.get_rect(center = (800, 950))
 
+        score = font.render("Score: " + str(self.game_state.player_score), True, "White")
+        score_rect = score.get_rect(center = (100, 50))
+
         self.window.blit(ammo_counter, ammo_counter_rect)
         self.window.blit(wave_display, wave_display_rect)
         self.window.blit(remaining_enemies, remaining_enemies_rect)
         self.window.blit(shield_status, shield_status_rect)
+        self.window.blit(score, score_rect)
         
         pygame.display.update()

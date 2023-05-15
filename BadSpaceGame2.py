@@ -6,6 +6,7 @@ from src.view.gameOverView import GameOverView
 from src.view.pauseMenuView import PauseMenuView
 from src.view.optionsView import OptionsView
 from src.model.options import Options
+from src.model.scores import Scores
 import pygame
 
 class BadSpaceGame2():
@@ -18,22 +19,21 @@ class BadSpaceGame2():
 
     def main(self):
         # Set up game state, options, and sound
-        channel = pygame.mixer.find_channel(True)
-        channel.set_volume(1.0)
-        game_state = GameState(self.window_size, channel)
         options = Options()
+        scores = Scores()
+        game_state = GameState(self.window_size, scores)
         
         # Set up views
         FPS = 60
         game_view = GameView(self.window, game_state)
-        options_view = OptionsView(self.window, options, channel)
-        main_menu_view = MainMenuView(self.window, channel)
-        game_over_view = GameOverView(self.window, game_state, channel)
-        pause_menu_view = PauseMenuView(self.window, game_state, channel)
+        options_view = OptionsView(self.window, options)
+        main_menu_view = MainMenuView(self.window)
+        game_over_view = GameOverView(self.window, game_state, scores)
+        pause_menu_view = PauseMenuView(self.window, game_state)
         views = (game_view, main_menu_view, game_over_view, pause_menu_view, options_view)
 
         # Set up controller
-        game_controller = GameController(game_state, views, FPS, channel, options)
+        game_controller = GameController(game_state, views, FPS, options)
 
         # Run game
         game_controller.run()

@@ -2,10 +2,9 @@ import pygame, sys
 from src.model.button import Button
 
 class OptionsView():
-    def __init__(self, window, options, channel):
+    def __init__(self, window, options):
         self.window = window
         self.options = options
-        self.channel = channel
         pygame.init()
 
         # Setting up background images
@@ -137,12 +136,12 @@ class OptionsView():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if back_button.checkForInput(menu_mouse_pos):
-                    self.channel.play(self.button_sound)
+                    self.button_sound.play()
                     self.button_pressed = "back"
                     self.options.write_options()
 
                 if music_button.checkForInput(menu_mouse_pos):
-                    self.channel.play(self.button_sound)
+                    self.button_sound.play()
                     if self.options.music_enabled:
                         self.options.music_enabled = False
                         pygame.mixer.music.set_volume(0.0)

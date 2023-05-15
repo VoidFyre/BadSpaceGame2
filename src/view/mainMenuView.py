@@ -2,9 +2,8 @@ import pygame, sys, math
 from src.model.button import Button
 
 class MainMenuView():
-    def __init__(self, window, channel):
+    def __init__(self, window):
         self.window = window
-        self.channel = channel
         pygame.init()
 
         # Setting up background images
@@ -133,11 +132,11 @@ class MainMenuView():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if play_button.checkForInput(menu_mouse_pos):
-                    self.channel.play(self.button_sound)
+                    self.button_sound.play()
                     self.button_pressed = "play"
 
                 if options_button.checkForInput(menu_mouse_pos):
-                    self.channel.play(self.button_sound)
+                    self.button_sound.play()
                     self.button_pressed = "options"
 
                 if quit_button.checkForInput(menu_mouse_pos):

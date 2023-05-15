@@ -2,7 +2,7 @@ import pygame, sys
 from src.model.player import Player
 
 class GameController():
-    def __init__(self, game_state, views: list, fps: int, channel, options):
+    def __init__(self, game_state, views: list, fps: int, options):
         self.FPS = fps
         self.game_state = game_state
         self.game_view, self.main_menu_view, self.game_over_view, self.pause_menu_view, self.options_view = views
@@ -10,15 +10,13 @@ class GameController():
         self.view_mode = "main"
         self.game_clock = pygame.time.Clock()
         self.music = "assets/sound/background_music.ogg"
-        self.channel = channel
         self.options = options
 
     def reset(self):
-        self.game_state.__init__((self.game_state.window_width, self.game_state.window_height), self.channel)
+        self.game_state.__init__((self.game_state.window_width, self.game_state.window_height), self.game_state.scores)
 
     def run(self):
         pygame.mixer.music.set_volume(self.options.volume)
-        self.channel.set_volume(self.options.volume)
         pygame.mixer.music.load(self.music)
         pygame.mixer.music.play(-1)
 
@@ -41,6 +39,9 @@ class GameController():
             if self.view_mode == "pause":
                 self.run_pause_menu()
 
+            if self.view_mode == "gameover":
+                self.run_game_over_menu()
+
 
     def run_game(self):
         self.game_state.update()
@@ -48,6 +49,9 @@ class GameController():
         if self.game_state.pause == True:
             self.view_mode = "pause"
             self.game_state.pause = False
+
+        if self.game_state.game_lost:
+            self.view_mode = "gameover"
 
 
     def run_main_menu(self):
@@ -77,7 +81,16 @@ class GameController():
             self.view_mode = "main"
 
     def run_game_over_menu(self):
-        pass
+        self.game_over_view.run()
+        if self.game_over_view.button_pressed == "main":
+            self.game_over_view.button_pressed = None
+            self.reset()
+            self.view_mode = "main"
+
+        if self.game_over_view.button_pressed == "restart":
+            self.game_over_view.button_pressed = None
+            self.reset()
+            self.view_mode = "play"
 
     def run_options_menu(self):
         self.options_view.run()
