@@ -18,8 +18,7 @@ class Player(ObjectMovable):
         self.img, self.health_max = self.component.get_ship(self.ship_rarity)
         self.primary_weapon = self.component.get_primary(self.primary_rarity)
         self.secondary_weapon = self.component.get_secondary(self.secondary_rarity)
-
-        self.thruster = None
+        self.thruster = self.component.get_thruster(self.thruster_rarity)
         
 
         
@@ -27,20 +26,20 @@ class Player(ObjectMovable):
         super().__init__(pos_x, pos_y, 5, self.img, window_size)
 
     def move_left(self):
-        if self.pos_x - self.speed > 0:
-            self.pos_x -= self.speed
+        if self.pos_x - self.thruster.speed > 0:
+            self.pos_x -= self.thruster.speed
 
     def move_right(self):
-        if self.pos_x + self.speed + self.img.get_height() < self.window_width:
-            self.pos_x += self.speed
+        if self.pos_x + self.thruster.speed + self.img.get_height() < self.window_width:
+            self.pos_x += self.thruster.speed
 
     def move_up(self):
-        if self.pos_y - self.speed > 0:
-            self.pos_y -= self.speed
+        if self.pos_y - self.thruster.speed > 0:
+            self.pos_y -= self.thruster.speed
 
     def move_down(self):
-        if self.pos_y + self.speed + self.img.get_width() < self.window_height:
-            self.pos_y += self.speed
+        if self.pos_y + self.thruster.speed + self.img.get_width() < self.window_height:
+            self.pos_y += self.thruster.speed
 
     def shoot_primary(self):
         if self.primary_cd == 0:
@@ -64,15 +63,17 @@ class Player(ObjectMovable):
         self.img, self.health_max = self.component.get_ship(self.ship_rarity)
         self.primary_weapon = self.component.get_primary(self.primary_rarity)
         self.secondary_weapon = self.component.get_secondary(self.secondary_rarity)
+        self.thruster = self.component.get_thruster(self.thruster_rarity)
 
         self.primary_weapon.update((self.pos_x, self.pos_y))
         self.secondary_weapon.update((self.pos_x, self.pos_y))
+        self.thruster.update((self.pos_x, self.pos_y))
 
     def render(self, window):
         window.blit(self.img, (self.pos_x, self.pos_y))
         self.primary_weapon.render(window)
         self.secondary_weapon.render(window)
-        # self.thruster.render()
+        self.thruster.render(window)
         self.healthbar(window)
 
     def healthbar(self, window):

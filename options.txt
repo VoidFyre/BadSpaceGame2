@@ -1,2 +1,2 @@
 Volume: 1.0
-Music Enabled: False
+Music Enabled: True

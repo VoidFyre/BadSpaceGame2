@@ -2,6 +2,7 @@ import pygame
 from src.function.loadImage import loadImage
 from src.model.weapon import Weapon
 from src.model.weaponSecondary import WeaponSecondary
+from src.model.thruster import Thruster
 
 class Component():
     def __init__(self, window_size):
@@ -136,6 +137,38 @@ class Component():
             "legendary": (self.load_image("assets/component/ship/ship_legendary.png", (100, 100)), 750),
         }
 
+        self.thrusters = {
+            "common": Thruster(
+                img = self.load_image("assets/component/thruster/thruster_common.png", (100, 100)),
+                speed = 3,
+                window_size = self.window_size,
+                special_sound = None
+            ),
+            "uncommon": Thruster(
+                img = self.load_image("assets/component/thruster/thruster_uncommon.png", (100, 100)),
+                speed = 4,
+                window_size = self.window_size,
+                special_sound = None
+            ),
+            "rare": Thruster(
+                img = self.load_image("assets/component/thruster/thruster_rare.png", (100, 100)),
+                speed = 6,
+                window_size = self.window_size,
+                special_sound = None
+            ),
+            "epic": Thruster(
+                img = self.load_image("assets/component/thruster/thruster_epic.png", (100, 100)),
+                speed = 8,
+                window_size = self.window_size,
+                special_sound = None
+            ),
+            "legendary": Thruster(
+                img = self.load_image("assets/component/thruster/thruster_legendary.png", (100, 100)),
+                speed = 10,
+                window_size = self.window_size,
+                special_sound = None
+            )
+        }
     def get_primary(self, rarity):
         return self.primary_weapons[rarity]
     
@@ -144,6 +177,9 @@ class Component():
     
     def get_ship(self, rarity):
         return self.ships[rarity]
+
+    def get_thruster(self, rarity):
+        return self.thrusters[rarity]
 
     def load_image(self, path:str, size:tuple):
         return loadImage(path, size)
