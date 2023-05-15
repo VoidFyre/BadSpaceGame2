@@ -29,7 +29,8 @@ class GameState():
         self.pause = False
         self.wave_spawned = False
         self.channel = channel
-        self.hit = pygame.mixer.Sound("assets/sound/hit.wav")
+        self.game_lost = False
+        self.game_start_timer = 180
 
     def get_input(self):
         pygame.event.pump()
@@ -110,34 +111,31 @@ class GameState():
 
             elif proj.owner == "enemy":
                 if proj.collision(self.player):
-                    self.hit.play()
-                    self.player.health_cur -= proj.damage
-                    proj.disabled = True
+                    self.player.hit(proj.damage)
+                    proj.hit()
                     
             elif proj.owner == "player":
                 for enemy in self.enemies:
                     if proj.collision(enemy):
-                        self.hit.play()
-                        enemy.health_cur -= proj.damage
-                        proj.disabled = True
+                        enemy.hit(proj.damage)
+                        proj.hit()
                         if isinstance(proj, ProjectileExploding):
                             proj.exp_sound.play()
                             self.explosions.append(proj.explode())
 
     def explosion_enemy_collision_check(self):
         for explosion in self.explosions:
-            if explosion.removeTime:
-                if explosion.timer >= 0:
-                    explosion.timer -= 1
-                elif explosion in self.explosions:
+            explosion.update()
+            if explosion.disabled:
+                if explosion in self.explosions:
                     self.explosions.remove(explosion)
 
-            else:
+            if explosion.active:
                 for enemy in self.enemies:
                     if explosion.collision(enemy):
-                        enemy.health_cur -= explosion.damage
-                
-                explosion.removeTime = True
+                        enemy.hit(explosion.damage)
+
+                explosion.active = False
 
     def drop_item(self, pos_x, pos_y, rarity):
         rand_num = random.randint(0, 100)
@@ -171,7 +169,7 @@ class GameState():
                 if ammo_pack in self.ammo_packs:
                     self.ammo_packs.remove(ammo_pack)
             elif ammo_pack.collision(self.player):
-                self.player.secondary_weapon.ammo = self.player.secondary_weapon.max_ammo
+                self.player.refil_ammo()
                 ammo_pack.sound.play()
                 ammo_pack.disabled = True
 
@@ -189,12 +187,9 @@ class GameState():
     def update_enemies(self):
         for enemy in self.enemies:
             enemy.update()
-            if enemy.health_cur <= 0:
-                self.drop_item(enemy.pos_x, enemy.pos_y, enemy.rarity)
-                enemy.disabled = True
             if enemy.cooldown <= 0:
                 randint = random.randint(0, 100)
-                if randint <= 50:
+                if randint <= 30:
                     self.projectiles.append(enemy.shoot())
                     enemy.cooldown = 60
                 else:
@@ -202,21 +197,26 @@ class GameState():
             else:
                 enemy.cooldown -= 1
             if enemy.disabled:
+                self.drop_item(enemy.pos_x, enemy.pos_y, enemy.rarity)
+                self.explosions.append(enemy.death())
                 if enemy in self.enemies:
                     self.enemies.remove(enemy)
 
     def update(self):
+        if self.game_start_timer >= 1:
+            self.game_start_timer -= 1
 
-        self.spawn_enemy()
+        else:
+            self.spawn_enemy()
 
-        self.get_input()
-        self.player.update()
+            self.get_input()
+            self.game_lost = self.player.update()
 
-        self.projectile_enemy_collision_check()
-        self.explosion_enemy_collision_check()
-        self.update_enemies()
-        
-        self.update_upgrades()
-        self.update_health_packs()
-        self.update_ammo_packs()
+            self.projectile_enemy_collision_check()
+            self.explosion_enemy_collision_check()
+            self.update_enemies()
+            
+            self.update_upgrades()
+            self.update_health_packs()
+            self.update_ammo_packs()
         

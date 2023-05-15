@@ -23,20 +23,20 @@ class Upgrade(ObjectMovable):
 
     def random_upgrade(self, player):
         rand_num = random.randint(0, 100)
-        if rand_num >= 0 and rand_num < 25:
+        if rand_num >= 0 and rand_num < 20:
             if player.ship_rarity == "common" or player.ship_rarity == "uncommon":
                 player.ship_rarity = self.rarity
-                player.health_cur = player.health_max
+                player.refil_health = True
             
             if player.ship_rarity == "rare" and self.rarity != "uncommon":
                 player.ship_rarity = self.rarity
-                player.health_cur = player.health_max
+                player.refil_health = True
 
             if player.ship_rarity == "epic" and self.rarity == "legendary":
                 player.ship_rarity = self.rarity
-                player.health_cur = player.health_max
+                player.refil_health = True
                 
-        if rand_num >= 30 and rand_num < 50:
+        if rand_num >= 20 and rand_num < 40:
             if player.primary_rarity == "common" or player.primary_rarity == "uncommon":
                 player.primary_rarity = self.rarity
             
@@ -46,7 +46,7 @@ class Upgrade(ObjectMovable):
             if player.primary_rarity == "epic" and self.rarity == "legendary":
                 player.primary_rarity = self.rarity
         
-        if rand_num >= 60 and rand_num < 75:
+        if rand_num >= 40 and rand_num < 60:
             if player.secondary_rarity == "common" or player.secondary_rarity == "uncommon":
                 player.secondary_rarity = self.rarity
             
@@ -56,7 +56,7 @@ class Upgrade(ObjectMovable):
             if player.secondary_rarity == "epic" and self.rarity == "legendary":
                 player.secondary_rarity = self.rarity
 
-        if rand_num >= 75:
+        if rand_num >= 60 and rand_num < 80:
             if player.thruster_rarity == "common" or player.thruster_rarity == "uncommon":
                 player.thruster_rarity = self.rarity
             
@@ -65,3 +65,13 @@ class Upgrade(ObjectMovable):
 
             if player.thruster_rarity == "epic" and self.rarity == "legendary":
                 player.thruster_rarity = self.rarity
+
+        if rand_num >= 80:
+            if player.shield_rarity == "common" or player.shield_rarity == "uncommon":
+                player.shield_rarity = self.rarity
+            
+            if player.shield_rarity == "rare" and self.rarity != "uncommon":
+                player.shield_rarity = self.rarity
+
+            if player.shield_rarity == "epic" and self.rarity == "legendary":
+                player.shield_rarity = self.rarity

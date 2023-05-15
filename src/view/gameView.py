@@ -70,6 +70,21 @@ class GameView():
         self.draw_background()
         self.game_state.player.render(self.window)
 
+        big_font = self.get_font(100)
+
+        if self.game_state.game_start_timer >= 120:
+            start_timer = big_font.render("3", True, "White")
+            start_timer_rect = start_timer.get_rect(center = (500, 500))
+            self.window.blit(start_timer, start_timer_rect)
+        elif self.game_state.game_start_timer >= 60:
+            start_timer = big_font.render("2", True, "White")
+            start_timer_rect = start_timer.get_rect(center = (500, 500))
+            self.window.blit(start_timer, start_timer_rect)
+        elif self.game_state.game_start_timer > 0:
+            start_timer = big_font.render("1", True, "White")
+            start_timer_rect = start_timer.get_rect(center = (500, 500))
+            self.window.blit(start_timer, start_timer_rect)
+
         for proj in self.game_state.projectiles:
             proj.render(self.window)
 
@@ -89,8 +104,9 @@ class GameView():
             upgrade.render(self.window)
 
         font = self.get_font(20)
+
         ammo_counter = font.render("Ammo: " + str(self.game_state.player.secondary_weapon.ammo) + "/" + str(self.game_state.player.secondary_weapon.max_ammo), True, "White")
-        ammo_counter_rect = ammo_counter.get_rect(center = (900, 950))
+        ammo_counter_rect = ammo_counter.get_rect(center = (850, 920))
 
         wave_display = font.render("Wave: " + str(self.game_state.wave_counter), True, "White")
         wave_display_rect = wave_display.get_rect(center = (900, 50))
@@ -98,8 +114,12 @@ class GameView():
         remaining_enemies = font.render("Enemies: " + str(len(self.game_state.enemies)), True, "White")
         remaining_enemies_rect = remaining_enemies.get_rect(center = (900, 80))
 
+        shield_status = font.render("Shield: " + self.game_state.player.shield.status, True, "White")
+        shield_status_rect = remaining_enemies.get_rect(center = (800, 950))
+
         self.window.blit(ammo_counter, ammo_counter_rect)
         self.window.blit(wave_display, wave_display_rect)
         self.window.blit(remaining_enemies, remaining_enemies_rect)
+        self.window.blit(shield_status, shield_status_rect)
         
         pygame.display.update()

@@ -15,10 +15,13 @@ class Player(ObjectMovable):
         self.secondary_rarity = "common"
         self.ship_rarity = "common"
         self.thruster_rarity = "common"
+        self.shield_rarity = "common"
         self.img, self.health_max = self.component.get_ship(self.ship_rarity)
         self.primary_weapon = self.component.get_primary(self.primary_rarity)
         self.secondary_weapon = self.component.get_secondary(self.secondary_rarity)
         self.thruster = self.component.get_thruster(self.thruster_rarity)
+        self.shield = self.component.get_shield(self.shield_rarity)
+        self.refil_health = False
         
 
         
@@ -64,18 +67,42 @@ class Player(ObjectMovable):
         self.primary_weapon = self.component.get_primary(self.primary_rarity)
         self.secondary_weapon = self.component.get_secondary(self.secondary_rarity)
         self.thruster = self.component.get_thruster(self.thruster_rarity)
+        self.shield = self.component.get_shield(self.shield_rarity)
 
         self.primary_weapon.update((self.pos_x, self.pos_y))
         self.secondary_weapon.update((self.pos_x, self.pos_y))
         self.thruster.update((self.pos_x, self.pos_y))
+        self.shield.update((self.pos_x, self.pos_y))
+
+        if self.refil_health:
+            self.refil_health = False
+            self.health_cur = self.health_max
+
+        if self.disabled:
+            return True
+        else:
+            return False
 
     def render(self, window):
         window.blit(self.img, (self.pos_x, self.pos_y))
         self.primary_weapon.render(window)
         self.secondary_weapon.render(window)
         self.thruster.render(window)
+        self.shield.render(window)
         self.healthbar(window)
 
     def healthbar(self, window):
-        pygame.draw.rect(window, (255,0,0), (self.pos_x, self.pos_y + self.img.get_height() + 10, self.img.get_width(), 10))
-        pygame.draw.rect(window, (0,255,0), (self.pos_x, self.pos_y + self.img.get_height() + 10, self.img.get_width() * (self.health_cur/self.health_max), 10))
+        pygame.draw.rect(window, (255, 0, 0), (self.pos_x, self.pos_y + self.img.get_height() + 10, self.img.get_width(), 10))
+        pygame.draw.rect(window, (0, 255, 0), (self.pos_x, self.pos_y + self.img.get_height() + 10, self.img.get_width() * (self.health_cur/self.health_max), 10))
+        pygame.draw.rect(window, (0, 0, 255), (self.pos_x, self.pos_y + self.img.get_height() + 15, self.img.get_width() * (self.shield.health_cur/self.shield.health_max), 5))
+
+    def hit(self, damage):
+        if self.shield.health_cur > 0:
+            self.shield.hit(damage)
+        else: 
+            self.health_cur -= damage
+        if self.health_cur <= 0:
+            self.disabled = True
+
+    def refil_ammo(self):
+        self.secondary_weapon.ammo = self.secondary_weapon.max_ammo

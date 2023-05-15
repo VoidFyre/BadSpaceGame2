@@ -7,12 +7,18 @@ class Explosion():
         self.pos_y = pos_y
         self.img = img
         self.damage = damage
-        self.removeTime = False
         self.timer = 20
         self.mask = pygame.mask.from_surface(img)
+        self.disabled = False
+        self.active = True
 
     def render(self, window):
         window.blit(self.img, (self.pos_x, self.pos_y))
+
+    def update(self):
+        self.timer -= 1
+        if self.timer == 0:
+            self.disabled = True
 
     def collision(self, obj):
         return collide(self, obj)
