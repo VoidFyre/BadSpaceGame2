@@ -191,15 +191,15 @@ class GameState():
 
     def update_score(self, rarity):
         if rarity == "common":
-            self.player_score += 1 * self.wave_counter
+            self.player_score += math.ceil(1 * (1 + (0.1 * self.wave_counter)))
         if rarity == "uncommon":
-            self.player_score += 2 * self.wave_counter
+            self.player_score += math.ceil(2 * (1 + (0.1 * self.wave_counter)))
         if rarity == "rare":
-            self.player_score += 3 * self.wave_counter
+            self.player_score += math.ceil(3 * (1 + (0.1 * self.wave_counter)))
         if rarity == "epic":
-            self.player_score += 4 * self.wave_counter
+            self.player_score += math.ceil(4 * (1 + (0.1 * self.wave_counter)))
         if rarity == "legendary":
-            self.player_score += 5 * self.wave_counter
+            self.player_score += math.ceil(5 * (1 + (0.1 * self.wave_counter)))
 
     def update_enemies(self):
         for enemy in self.enemies:
