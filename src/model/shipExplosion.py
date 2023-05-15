@@ -7,12 +7,12 @@ class ShipExplosion():
         self.timer = 24
         self.disabled = False
         self.active = False
-        anim_1 = self.load_image("assets/effect/ship_explosion/ship_explosion1.png", (100, 100))
-        anim_2 = self.load_image("assets/effect/ship_explosion/ship_explosion2.png", (100, 100))
-        anim_3 = self.load_image("assets/effect/ship_explosion/ship_explosion3.png", (100, 100))
-        anim_4 = self.load_image("assets/effect/ship_explosion/ship_explosion4.png", (100, 100))
-        anim_5 = self.load_image("assets/effect/ship_explosion/ship_explosion5.png", (100, 100))
-        anim_6 = self.load_image("assets/effect/ship_explosion/ship_explosion6.png", (100, 100))
+        anim_1 = self.load_image("assets/effect/ship_explosion/1.png", (100, 100))
+        anim_2 = self.load_image("assets/effect/ship_explosion/2.png", (100, 100))
+        anim_3 = self.load_image("assets/effect/ship_explosion/3.png", (100, 100))
+        anim_4 = self.load_image("assets/effect/ship_explosion/4.png", (100, 100))
+        anim_5 = self.load_image("assets/effect/ship_explosion/5.png", (100, 100))
+        anim_6 = self.load_image("assets/effect/ship_explosion/6.png", (100, 100))
         self.anim = [anim_1, anim_2, anim_3, anim_4, anim_5, anim_6]
         self.img = anim_1
 

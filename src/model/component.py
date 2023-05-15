@@ -67,7 +67,16 @@ class Component():
             "common": WeaponSecondary(
                 img = self.load_image("assets/component/secondary/weapon/secondary_common.png", (75, 75)),
                 proj_img = self.load_image("assets/component/secondary/projectile/projectile_secondary_common.png", (30, 30)),
-                proj_exp_img = self.load_image("assets/component/secondary/explosion/explosion_secondary_common.png", (500, 500)),
+                proj_exp_anim = [
+                    self.load_image("assets/effect/explosion_common/1.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/2.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/3.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/4.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/5.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/6.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/7.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/8.png", (500, 500))
+                ],
                 proj_speed = 12,
                 damage = 5,
                 cooldown = 180,
@@ -82,7 +91,16 @@ class Component():
             "uncommon": WeaponSecondary(
                 img = self.load_image("assets/component/secondary/weapon/secondary_uncommon.png", (75, 75)),
                 proj_img = self.load_image("assets/component/secondary/projectile/projectile_secondary_uncommon.png", (30, 30)),
-                proj_exp_img = self.load_image("assets/component/secondary/explosion/explosion_secondary_uncommon.png", (500, 500)),
+                proj_exp_anim = [
+                    self.load_image("assets/effect/explosion_common/1.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/2.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/3.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/4.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/5.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/6.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/7.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/8.png", (500, 500))
+                ],
                 proj_speed = 12,
                 damage = 10,
                 cooldown = 160,
@@ -97,7 +115,16 @@ class Component():
             "rare": WeaponSecondary(
                 img = self.load_image("assets/component/secondary/weapon/secondary_rare.png", (75, 75)),
                 proj_img = self.load_image("assets/component/secondary/projectile/projectile_secondary_rare.png", (30, 30)),
-                proj_exp_img = self.load_image("assets/component/secondary/explosion/explosion_secondary_rare.png", (500, 500)),
+                proj_exp_anim = [
+                    self.load_image("assets/effect/explosion_common/1.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/2.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/3.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/4.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/5.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/6.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/7.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/8.png", (500, 500))
+                ],
                 proj_speed = 12,
                 damage = 15,
                 cooldown = 140,
@@ -112,7 +139,16 @@ class Component():
             "epic": WeaponSecondary(
                 img = self.load_image("assets/component/secondary/weapon/secondary_epic.png", (75, 75)),
                 proj_img = self.load_image("assets/component/secondary/projectile/projectile_secondary_epic.png", (30, 30)),
-                proj_exp_img = self.load_image("assets/component/secondary/explosion/explosion_secondary_epic.png", (500, 500)),
+                proj_exp_anim = [
+                    self.load_image("assets/effect/explosion_common/1.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/2.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/3.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/4.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/5.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/6.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/7.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/8.png", (500, 500))
+                ],
                 proj_speed = 12,
                 damage = 25,
                 cooldown = 130,
@@ -127,7 +163,16 @@ class Component():
             "legendary": WeaponSecondary(
                 img = self.load_image("assets/component/secondary/weapon/secondary_legendary.png", (75, 75)),
                 proj_img = self.load_image("assets/component/secondary/projectile/projectile_secondary_legendary.png", (30, 30)),
-                proj_exp_img = self.load_image("assets/component/secondary/explosion/explosion_secondary_legendary.png", (500, 500)),
+                proj_exp_anim = [
+                    self.load_image("assets/effect/explosion_common/1.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/2.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/3.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/4.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/5.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/6.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/7.png", (500, 500)),
+                    self.load_image("assets/effect/explosion_common/8.png", (500, 500))
+                ],
                 proj_speed = 12,
                 damage = 50,
                 cooldown = 120,

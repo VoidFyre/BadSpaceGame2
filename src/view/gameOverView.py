@@ -145,10 +145,10 @@ class GameOverView():
         font = self.get_font(30)
 
         score = font.render("Score: " + str(self.game_state.player_score), True, "White")
-        score_rect = score.get_rect(center = (500, 400))
+        score_rect = score.get_rect(center = (550, 400))
 
         high_score = font.render("High Score: " + str(self.scores.high_score), True, "White")
-        high_score_rect = score.get_rect(center = (500, 500))
+        high_score_rect = score.get_rect(center = (550, 500))
 
         self.window.blit(score, score_rect)
         self.window.blit(high_score, high_score_rect)

@@ -105,4 +105,4 @@ class Player(ObjectMovable):
             self.disabled = True
 
     def refil_ammo(self):
-        self.secondary_weapon.ammo = self.secondary_weapon.max_ammo
+        self.secondary_weapon.refil_ammo()
