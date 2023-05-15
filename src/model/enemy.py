@@ -90,4 +90,4 @@ class Enemy(ObjectMovable):
 
     def death(self):
         self.death_sound.play()
-        return ShipExplosion(self.pos_x - 50, self.pos_y - 20)
+        return ShipExplosion(self.pos_x - 25, self.pos_y - 20)
