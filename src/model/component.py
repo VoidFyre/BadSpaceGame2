@@ -19,7 +19,7 @@ class Component():
                 damage = 100,
                 cooldown = 15,
                 window_size = self.window_size,
-                sound = pygame.mixer.Sound("assets/sound/laser_fire.ogg"),
+                sound = pygame.mixer.Sound("assets/sound/gunshot.wav"),
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
             "uncommon": Weapon(
@@ -44,15 +44,25 @@ class Component():
             ),
             "epic": WeaponBeam(
                 img = self.load_image("assets/component/primary/weapon/primary_epic.png", (75, 75)),
-                proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_epic.png", (50, 1000)),
+                proj_anim = [
+                    self.load_image("assets/component/primary/projectile/laser_epic1.png", (32, 1028)),
+                    self.load_image("assets/component/primary/projectile/laser_epic2.png", (32, 1028)),
+                    self.load_image("assets/component/primary/projectile/laser_epic3.png", (32, 1028)),
+                    self.load_image("assets/component/primary/projectile/laser_epic4.png", (32, 1028))
+                ],
                 damage = 10,
                 window_size = self.window_size,
-                sound = pygame.mixer.Sound("assets/sound/laser_fire.ogg"),
+                sound = pygame.mixer.Sound("assets/sound/beam_fire.ogg"),
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
             "legendary": WeaponBeam(
                 img = self.load_image("assets/component/primary/weapon/primary_legendary.png", (75, 75)),
-                proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_legendary.png", (50, 1000)),
+                proj_anim = [
+                    self.load_image("assets/component/primary/projectile/laser_legendary1.png", (32, 1028)),
+                    self.load_image("assets/component/primary/projectile/laser_legendary2.png", (32, 1028)),
+                    self.load_image("assets/component/primary/projectile/laser_legendary3.png", (32, 1028)),
+                    self.load_image("assets/component/primary/projectile/laser_legendary4.png", (32, 1028))
+                ],
                 damage = 15,
                 window_size = self.window_size,
                 sound = pygame.mixer.Sound("assets/sound/beam_fire.ogg"),

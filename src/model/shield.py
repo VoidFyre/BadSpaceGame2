@@ -10,26 +10,24 @@ class Shield():
         self.active = True
         self.cooldown = 0
         self.broken = False
-        self.status = "Active"
         self.recharge_sound = pygame.mixer.Sound("assets/sound/shield_recharge.mp3")
         self.hit_sound = pygame.mixer.Sound("assets/sound/shield_hit.wav")
+        self.blink_timer = 0
 
     def update(self, pos: tuple):
         if self.cooldown > 0:
             self.cooldown -= 1
 
-        elif self.health_cur <= self.health_max:
+        elif self.health_cur < self.health_max:
             self.health_cur += 1
 
         if self.broken:
-            self.status = "Recharging"
             self.active = False
             self.broken = False
             self.cooldown = 180
             self.recharge_sound.play()
 
         if self.health_cur >= 0:
-            self.status = "Active"
             self.active = True
 
         self.pos_x = pos[0]
@@ -42,6 +40,22 @@ class Shield():
         if self.health_cur <= 0:
             self.broken = True
 
+    def healthbar(self, window):
+        if self.active:
+            pygame.draw.rect(window, (0, 0, 255), (300, 960, 400 * (self.health_cur / self.health_max), 10))
+        else:
+            if self.blink_timer < 10:
+                self.blink_timer += 1
+            else:
+                self.blink_timer = 0
+
+            if self.blink_timer >= 0 and self.blink_timer < 5:
+                pygame.draw.rect(window, (255, 0, 0), (300, 960, 400, 10))
+            if self.blink_timer >= 5:
+                pygame.draw.rect(window, (0, 0, 255), (300, 960, 400, 10))
+
     def render(self, window):
         if self.active:
             window.blit(self.img, (self.pos_x - 10, self.pos_y - 10))
+        else:
+            pass

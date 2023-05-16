@@ -115,16 +115,12 @@ class GameView():
         remaining_enemies = font.render("Enemies: " + str(len(self.game_state.enemies)), True, "White")
         remaining_enemies_rect = remaining_enemies.get_rect(center = (900, 80))
 
-        shield_status = font.render("Shield: " + self.game_state.player.shield.status, True, "White")
-        shield_status_rect = remaining_enemies.get_rect(center = (800, 950))
-
         score = font.render("Score: " + str(self.game_state.player_score), True, "White")
         score_rect = score.get_rect(center = (100, 50))
 
         self.window.blit(ammo_counter, ammo_counter_rect)
         self.window.blit(wave_display, wave_display_rect)
         self.window.blit(remaining_enemies, remaining_enemies_rect)
-        self.window.blit(shield_status, shield_status_rect)
         self.window.blit(score, score_rect)
         
         pygame.display.update()

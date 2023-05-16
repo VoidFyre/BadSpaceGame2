@@ -11,7 +11,7 @@ class Player(ObjectMovable):
         self.primary_cd = 100
         self.secondary_cd = 100
         self.window_size = window_size
-        self.primary_rarity = "legendary"
+        self.primary_rarity = "common"
         self.secondary_rarity = "common"
         self.ship_rarity = "common"
         self.thruster_rarity = "common"
@@ -88,11 +88,11 @@ class Player(ObjectMovable):
         self.thruster.render(window)
         self.shield.render(window)
         self.healthbar(window)
-
+        self.shield.healthbar(window)
+        
     def healthbar(self, window):
-        pygame.draw.rect(window, (255, 0, 0), (self.pos_x, self.pos_y + self.img.get_height() + 10, self.img.get_width(), 10))
-        pygame.draw.rect(window, (0, 255, 0), (self.pos_x, self.pos_y + self.img.get_height() + 10, self.img.get_width() * (self.health_cur/self.health_max), 10))
-        pygame.draw.rect(window, (0, 0, 255), (self.pos_x, self.pos_y + self.img.get_height() + 15, self.img.get_width() * (self.shield.health_cur/self.shield.health_max), 5))
+        pygame.draw.rect(window, (255, 0, 0), (300, 950, 400, 20))
+        pygame.draw.rect(window, (0, 255, 0), (300, 950, 400 * (self.health_cur / self.health_max), 20))
 
     def hit(self, damage):
         if self.shield.health_cur > 0:
