@@ -55,7 +55,7 @@ class Component():
                 proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_legendary.png", (50, 1000)),
                 damage = 15,
                 window_size = self.window_size,
-                sound = pygame.mixer.Sound("assets/sound/laser_fire.ogg"),
+                sound = pygame.mixer.Sound("assets/sound/beam_fire.ogg"),
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             )
         }

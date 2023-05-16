@@ -11,7 +11,7 @@ class Player(ObjectMovable):
         self.primary_cd = 100
         self.secondary_cd = 100
         self.window_size = window_size
-        self.primary_rarity = "common"
+        self.primary_rarity = "legendary"
         self.secondary_rarity = "common"
         self.ship_rarity = "common"
         self.thruster_rarity = "common"
