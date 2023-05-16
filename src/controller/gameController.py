@@ -5,7 +5,7 @@ class GameController():
     def __init__(self, game_state, views: list, fps: int, options):
         self.FPS = fps
         self.game_state = game_state
-        self.game_view, self.main_menu_view, self.game_over_view, self.pause_menu_view, self.options_view = views
+        self.game_view, self.main_menu_view, self.game_over_view, self.pause_menu_view, self.options_view, self.credits_view = views
         self.keep_running = True
         self.view_mode = "main"
         self.game_clock = pygame.time.Clock()
@@ -42,6 +42,9 @@ class GameController():
             if self.view_mode == "gameover":
                 self.run_game_over_menu()
 
+            if self.view_mode == "credits":
+                self.run_credits()
+
 
     def run_game(self):
         self.game_state.update()
@@ -63,6 +66,10 @@ class GameController():
         if self.main_menu_view.button_pressed == "options":
             self.main_menu_view.button_pressed = None
             self.view_mode = "options"
+
+        if self.main_menu_view.button_pressed == "credits":
+            self.main_menu_view.button_pressed = None
+            self.view_mode = "credits"
 
     def run_pause_menu(self):
         self.pause_menu_view.run()
@@ -96,4 +103,10 @@ class GameController():
         self.options_view.run()
         if self.options_view.button_pressed == "back":
             self.options_view.button_pressed = None
+            self.view_mode = "main"
+
+    def run_credits(self):
+        self.credits_view.run()
+        if self.credits_view.button_pressed == "back":
+            self.credits_view.button_pressed = None
             self.view_mode = "main"

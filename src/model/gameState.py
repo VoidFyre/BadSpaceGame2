@@ -1,4 +1,6 @@
 from src.model.player import Player
+from src.model.beam import Beam
+from src.model.weaponBeam import WeaponBeam
 from src.model.projectileExploding import ProjectileExploding
 from src.model.enemy import Enemy
 from src.model.healthPack import HealthPack
@@ -48,9 +50,18 @@ class GameState():
             self.player.move_down()
 
         if mouse[0]:
-            proj = self.player.shoot_primary()
-            if proj is not None:
-                self.projectiles.append(proj)
+            if isinstance(self.player.primary_weapon, WeaponBeam):
+                proj = self.player.shoot_primary()
+                self.player.primary_weapon.shooting = True
+                if proj is not None:
+                    self.projectiles.append(proj)
+            else:
+                proj = self.player.shoot_primary()
+                if proj is not None:
+                    self.projectiles.append(proj)
+
+        elif isinstance(self.player.primary_weapon, WeaponBeam):
+            self.player.primary_weapon.shooting = False
 
         if mouse[2]:
             proj = self.player.shoot_secondary()
@@ -103,24 +114,33 @@ class GameState():
 
     def projectile_enemy_collision_check(self):
         for proj in self.projectiles:
-            proj.update()
-            if proj.disabled:
-                if proj in self.projectiles:
-                    self.projectiles.remove(proj)
 
-            elif proj.owner == "enemy":
-                if proj.collision(self.player):
-                    self.player.hit(proj.damage)
-                    proj.hit()
-                    
-            elif proj.owner == "player":
-                for enemy in self.enemies:
-                    if proj.collision(enemy):
-                        enemy.hit(proj.damage)
+            if not isinstance(proj, Beam):
+                proj.update()
+                if proj.disabled:
+                    if proj in self.projectiles:
+                        self.projectiles.remove(proj)
+
+                elif proj.owner == "enemy":
+                    if proj.collision(self.player):
+                        self.player.hit(proj.damage)
                         proj.hit()
-                        if isinstance(proj, ProjectileExploding):
-                            proj.exp_sound.play()
-                            self.explosions.append(proj.explode())
+                        
+                elif proj.owner == "player":
+                    for enemy in self.enemies:
+                        if proj.collision(enemy):
+                            enemy.hit(proj.damage)
+                            proj.hit()
+                            if isinstance(proj, ProjectileExploding):
+                                proj.exp_sound.play()
+                                self.explosions.append(proj.explode())
+                            
+            else:
+                if not proj.disabled:
+                    for enemy in self.enemies:
+                        if proj.collision(enemy):
+                            enemy.hit(proj.damage)
+                            proj.hit()
 
     def explosion_enemy_collision_check(self):
         for explosion in self.explosions:

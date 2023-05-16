@@ -4,6 +4,7 @@ from src.model.weapon import Weapon
 from src.model.weaponSecondary import WeaponSecondary
 from src.model.thruster import Thruster
 from src.model.shield import Shield
+from src.model.weaponBeam import WeaponBeam
 
 class Component():
     def __init__(self, window_size):
@@ -41,22 +42,18 @@ class Component():
                 sound = pygame.mixer.Sound("assets/sound/laser_fire.ogg"),
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
-            "epic": Weapon(
+            "epic": WeaponBeam(
                 img = self.load_image("assets/component/primary/weapon/primary_epic.png", (75, 75)),
-                proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_epic.png", (30, 30)),
-                proj_speed = 10,
-                damage = 200,
-                cooldown = 10,
+                proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_epic.png", (50, 1000)),
+                damage = 10,
                 window_size = self.window_size,
                 sound = pygame.mixer.Sound("assets/sound/laser_fire.ogg"),
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
-            "legendary": Weapon(
+            "legendary": WeaponBeam(
                 img = self.load_image("assets/component/primary/weapon/primary_legendary.png", (75, 75)),
-                proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_legendary.png", (30, 30)),
-                proj_speed = 10,
-                damage = 250,
-                cooldown = 5,
+                proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_legendary.png", (50, 1000)),
+                damage = 15,
                 window_size = self.window_size,
                 sound = pygame.mixer.Sound("assets/sound/laser_fire.ogg"),
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")

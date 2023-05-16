@@ -1,7 +1,7 @@
-import pygame, sys, math
+import pygame, sys
 from src.model.button import Button
 
-class MainMenuView():
+class CreditsView():
     def __init__(self, window):
         self.window = window
         pygame.init()
@@ -81,7 +81,7 @@ class MainMenuView():
 
 
     def run(self):
-        pygame.display.set_caption("Bad Things From Outer Space: The Game 2 MENU")
+        pygame.display.set_caption("Bad Things From Outer Space: The Game 2 CREDITS")
 
         pygame.mouse.set_visible(False)
         
@@ -92,41 +92,15 @@ class MainMenuView():
         base_button_image = pygame.transform.scale(pygame.image.load("assets/interface/button/button_long.png"), (300, 100))
         hovering_button_image = pygame.transform.scale(pygame.image.load("assets/interface/button/button_long_hovering.png"), (300, 100))
 
-        play_button = Button(base_image = base_button_image,
+        main_menu_button = Button(base_image = base_button_image,
                                 hovering_image = hovering_button_image,
-                                pos = (200, 350),
-                                text_input = "PLAY",
-                                font = self.get_font(50),
-                                base_color = "Black",
-                                hovering_color = "White")
-        
-        options_button = Button(base_image = base_button_image,
-                                hovering_image = hovering_button_image,
-                                pos = (200, 500),
-                                text_input = "OPTIONS",
+                                pos = (200, 100),
+                                text_input = "BACK",
                                 font = self.get_font(30),
                                 base_color = "Black",
                                 hovering_color = "White")
-        
-        credits_button = Button(base_image = base_button_image,
-                                hovering_image = hovering_button_image,
-                                pos = (200, 650),
-                                text_input = "CREDITS",
-                                font = self.get_font(30),
-                                base_color = "Black",
-                                hovering_color = "White")
-        
-        quit_button = Button(base_image = base_button_image,
-                                hovering_image = hovering_button_image,
-                                pos = (200, 900),
-                                text_input = "QUIT",
-                                font = self.get_font(30),
-                                base_color = "Black",
-                                hovering_color = "White")
-        
-        
 
-        for button in [play_button, options_button, quit_button, credits_button]:
+        for button in [main_menu_button]:
             button.changeColor(menu_mouse_pos)
             button.update(self.window)
 
@@ -136,25 +110,33 @@ class MainMenuView():
             self.window.blit(self.cursor_image, self.cursor)
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if play_button.checkForInput(menu_mouse_pos):
+                if main_menu_button.checkForInput(menu_mouse_pos):
                     self.button_sound.play()
-                    self.button_pressed = "play"
+                    self.button_pressed = "back"
 
-                if options_button.checkForInput(menu_mouse_pos):
-                    self.button_sound.play()
-                    self.button_pressed = "options"
+        font = self.get_font(30)
 
-                if credits_button.checkForInput(menu_mouse_pos):
-                    self.button_sound.play()
-                    self.button_pressed = "credits"
+        text1 = font.render("Created by Void Fyre", True, "White")
+        text1_rect = text1.get_rect(center = (500, 200))
 
-                if quit_button.checkForInput(menu_mouse_pos):
-                    pygame.quit()
-                    sys.exit()
+        text2 = font.render("Original Idea By:", True, "White")
+        text2_rect = text2.get_rect(center = (500, 300))
+
+        text3 = font.render("Void Fyre", True, "White")
+        text3_rect = text3.get_rect(center = (500, 350))
+
+        text4 = font.render("Bucket (DamyonO)", True, "White")
+        text4_rect = text4.get_rect(center = (500, 400))
+
+        text5 = font.render("QMS (qmohitsingh)", True, "White")
+        text5_rect = text5.get_rect(center = (500, 450))
+
+        self.window.blit(text1, text1_rect)
+        self.window.blit(text2, text2_rect)
+        self.window.blit(text3, text3_rect)
+        self.window.blit(text4, text4_rect)
+        self.window.blit(text5, text5_rect)
 
         pygame.display.update()

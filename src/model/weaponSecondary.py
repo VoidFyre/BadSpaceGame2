@@ -16,6 +16,7 @@ class WeaponSecondary(Weapon):
     def shoot(self):
         if self.ammo > 0:
             self.ammo -= 1
+            self.sound.play()
             return ProjectileExploding(self.pos_x + 30, self.pos_y, self.proj_speed, self.proj_img, self.proj_exp_anim, "player", self.window_size, self.damage, self.exp_dmg, self.exp_sound, self.hit_sound)
         
     def refil_ammo(self):

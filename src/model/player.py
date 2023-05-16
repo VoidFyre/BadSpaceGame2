@@ -47,13 +47,11 @@ class Player(ObjectMovable):
     def shoot_primary(self):
         if self.primary_cd == 0:
             self.primary_cd = self.primary_weapon.cooldown
-            self.primary_weapon.sound.play()
             return self.primary_weapon.shoot()
 
     def shoot_secondary(self):
         if self.secondary_cd == 0:
             self.secondary_cd = self.secondary_weapon.cooldown
-            self.secondary_weapon.sound.play()
             return self.secondary_weapon.shoot()
     
     def update(self):

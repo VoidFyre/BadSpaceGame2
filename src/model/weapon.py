@@ -14,6 +14,7 @@ class Weapon():
         self.hit_sound = hit_sound
 
     def shoot(self):
+        self.sound.play()
         return Projectile(self.pos_x + 15, self.pos_y, self.proj_speed, self.proj_img, "player", self.window_size, self.damage, self.hit_sound)
         
     def update(self, pos: tuple):

@@ -5,6 +5,7 @@ from src.view.mainMenuView import MainMenuView
 from src.view.gameOverView import GameOverView
 from src.view.pauseMenuView import PauseMenuView
 from src.view.optionsView import OptionsView
+from src.view.creditsView import CreditsView
 from src.model.options import Options
 from src.model.scores import Scores
 import pygame
@@ -30,7 +31,8 @@ class BadSpaceGame2():
         main_menu_view = MainMenuView(self.window)
         game_over_view = GameOverView(self.window, game_state, scores)
         pause_menu_view = PauseMenuView(self.window, game_state)
-        views = (game_view, main_menu_view, game_over_view, pause_menu_view, options_view)
+        credits_view = CreditsView(self.window)
+        views = (game_view, main_menu_view, game_over_view, pause_menu_view, options_view, credits_view)
 
         # Set up controller
         game_controller = GameController(game_state, views, FPS, options)
