@@ -1,6 +1,7 @@
 import pygame
 from src.model.objectMovable import ObjectMovable
 from src.model.component import Component
+from src.model.shipExplosion import ShipExplosion
 
 class Player(ObjectMovable):
     def __init__(self, pos_x, pos_y, window_size: tuple):
@@ -8,10 +9,10 @@ class Player(ObjectMovable):
         
         self.window_width = window_size[0]
         self.window_height = window_size[1]
-        self.primary_cd = 100
-        self.secondary_cd = 100
+        self.primary_cd = 0
+        self.secondary_cd = 0
         self.window_size = window_size
-        self.primary_rarity = "common"
+        self.primary_rarity = "legendary"
         self.secondary_rarity = "common"
         self.ship_rarity = "common"
         self.thruster_rarity = "common"
@@ -22,6 +23,9 @@ class Player(ObjectMovable):
         self.thruster = self.component.get_thruster(self.thruster_rarity)
         self.shield = self.component.get_shield(self.shield_rarity)
         self.refil_health = False
+        self.dead = False
+        self.death_sound = pygame.mixer.Sound("assets/sound/death.ogg")
+        self.death_shock = pygame.mixer.Sound("assets/sound/death_shock.wav")
         
 
         
@@ -76,19 +80,16 @@ class Player(ObjectMovable):
             self.refil_health = False
             self.health_cur = self.health_max
 
-        if self.disabled:
-            return True
-        else:
-            return False
 
     def render(self, window):
-        window.blit(self.img, (self.pos_x, self.pos_y))
-        self.primary_weapon.render(window)
-        self.secondary_weapon.render(window)
-        self.thruster.render(window)
-        self.shield.render(window)
-        self.healthbar(window)
-        self.shield.healthbar(window)
+        if not self.disabled:
+            window.blit(self.img, (self.pos_x, self.pos_y))
+            self.primary_weapon.render(window)
+            self.secondary_weapon.render(window)
+            self.thruster.render(window)
+            self.shield.render(window)
+            self.healthbar(window)
+            self.shield.healthbar(window)
         
     def healthbar(self, window):
         pygame.draw.rect(window, (255, 0, 0), (300, 950, 400, 20))
@@ -100,7 +101,14 @@ class Player(ObjectMovable):
         else: 
             self.health_cur -= damage
         if self.health_cur <= 0:
-            self.disabled = True
+            self.death_shock.play()
+            self.dead = True
+
+    def kill(self):
+        self.disabled = True
+        self.death_shock.stop()
+        self.death_sound.play()
+        return ShipExplosion(self.pos_x - 25, self.pos_y - 20)
 
     def refil_ammo(self):
         self.secondary_weapon.refil_ammo()

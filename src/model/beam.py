@@ -3,6 +3,7 @@ from src.function.collide import collide
 
 class Beam():
     def __init__(self, anim, window_size:tuple, damage:int, hit_sound, pos):
+        self.owner = "player"
         self.anim = anim
         self.window_size = window_size
         self.damage = damage
@@ -42,4 +43,4 @@ class Beam():
             window.blit(self.img, (self.pos_x, self.pos_y))
 
     def collision(self, obj):
-        return collide(self, obj)
+        return collide(self, obj) and not self.disabled

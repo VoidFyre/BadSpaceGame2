@@ -5,8 +5,6 @@ class WeaponSecondary(Weapon):
     def __init__(self, img, proj_img, proj_exp_anim, proj_speed:int, damage:int, cooldown:int, ammo:int, max_ammo:int, window_size:tuple, sound, exp_sound, exp_dmg, hit_sound):
         super().__init__(img, proj_img, proj_speed, damage, cooldown, window_size, sound, None)
         self.proj_exp_anim = proj_exp_anim
-        self.pos_x = 500
-        self.pos_y = 900
         self.ammo = ammo
         self.max_ammo = max_ammo
         self.exp_sound = exp_sound

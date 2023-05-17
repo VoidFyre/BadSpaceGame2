@@ -6,6 +6,7 @@ from src.model.enemy import Enemy
 from src.model.healthPack import HealthPack
 from src.model.ammoPack import AmmoPack
 from src.model.upgrade import Upgrade
+from src.model.asteroid import Asteroid
 import math
 import pygame
 import random
@@ -13,13 +14,14 @@ import random
 class GameState():
     def __init__(self, window_size: tuple, scores):
         self.scores = scores
-        self.player = Player(500, 900, window_size)
+        self.player = Player(465, 800, window_size)
         self.enemies = []
         self.projectiles = []
         self.explosions = []
         self.health_packs = []
         self.ammo_packs = []
         self.upgrades = []
+        self.asteroids = []
         self.player_score = 0
         self.wave_counter = 0
         self.wave_length = 0
@@ -32,6 +34,8 @@ class GameState():
         self.wave_spawned = False
         self.game_lost = False
         self.game_start_timer = 180
+        self.asteroid_timer = 1200
+        self.death_timer = 300
 
     def get_input(self):
         pygame.event.pump()
@@ -159,7 +163,7 @@ class GameState():
     def player_enemy_collision_check(self):
         for enemy in self.enemies:
             if enemy.collision(self.player):
-                self.player.hit(self.player.health_max / 2)
+                self.player.hit(self.player.health_max / 2 + 10)
                 enemy.hit(enemy.health_max)
 
     def drop_item(self, pos_x, pos_y, rarity):
@@ -209,6 +213,27 @@ class GameState():
                 upgrade.random_upgrade(self.player)
                 upgrade.disabled = True
 
+    def update_asteroids(self):
+        for ast in self.asteroids:
+            ast.update()
+            if ast.disabled:
+                if ast in self.asteroids:
+                    self.asteroids.remove(ast)
+            
+            if ast.collision(self.player):
+                self.player.hit(ast.health)
+                ast.hit(self.player.health_cur)
+
+            for proj in self.projectiles:
+                if proj.owner == "player":
+                    if proj.collision(ast):
+                        proj.hit()
+                        ast.hit(proj.damage)
+                
+    def spawn_asteroid(self):
+        x = random.randint(0, 900)
+        self.asteroids.append(Asteroid(x, -200, self.window_size))
+
     def update_score(self, rarity):
         if rarity == "common":
             self.player_score += math.ceil(1 * (1 + (0.1 * self.wave_counter)))
@@ -245,10 +270,15 @@ class GameState():
             self.game_start_timer -= 1
 
         else:
+            if self.asteroid_timer > 0:
+                self.asteroid_timer -= 1
+            else:
+                self.spawn_asteroid()
+                self.asteroid_timer = random.randint(800, 1600)
             self.spawn_enemy()
 
             self.get_input()
-            self.game_lost = self.player.update()
+            self.player.update()
 
             self.projectile_enemy_collision_check()
             self.explosion_enemy_collision_check()
@@ -257,7 +287,17 @@ class GameState():
             self.update_upgrades()
             self.update_health_packs()
             self.update_ammo_packs()
+            self.update_asteroids()
 
-            if self.game_lost:
+            if self.player.dead:
+                if self.death_timer > 0:
+                    self.death_timer -= 1
+                else:
+                    self.game_lost = True
+
+                if self.death_timer == 150:
+                    self.explosions.append(self.player.kill())
+                
+
                 self.scores.write_scores(self.player_score)
         

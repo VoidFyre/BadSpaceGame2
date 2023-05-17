@@ -104,6 +104,9 @@ class GameView():
         for upgrade in self.game_state.upgrades:
             upgrade.render(self.window)
 
+        for ast in self.game_state.asteroids:
+            ast.render(self.window)
+
         font = self.get_font(20)
 
         ammo_counter = font.render("Ammo: " + str(self.game_state.player.secondary_weapon.ammo) + "/" + str(self.game_state.player.secondary_weapon.max_ammo), True, "White")

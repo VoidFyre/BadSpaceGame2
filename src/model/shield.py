@@ -2,8 +2,8 @@ import pygame
 
 class Shield():
     def __init__(self, img, health:int):
-        self.pos_x = 500
-        self.pos_y = 900
+        self.pos_x = 465
+        self.pos_y = 800
         self.img = img
         self.health_max = health
         self.health_cur = health
@@ -27,7 +27,7 @@ class Shield():
             self.cooldown = 180
             self.recharge_sound.play()
 
-        if self.health_cur >= 0:
+        if self.health_cur > 0:
             self.active = True
 
         self.pos_x = pos[0]
@@ -38,6 +38,7 @@ class Shield():
         self.hit_sound.play()
         self.health_cur -= damage
         if self.health_cur <= 0:
+            self.health_cur = 0
             self.broken = True
 
     def healthbar(self, window):
@@ -57,5 +58,3 @@ class Shield():
     def render(self, window):
         if self.active:
             window.blit(self.img, (self.pos_x - 10, self.pos_y - 10))
-        else:
-            pass

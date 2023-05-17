@@ -6,8 +6,8 @@ class Weapon():
         self.proj_img = proj_img
         self.proj_speed = proj_speed
         self.damage = damage
-        self.pos_x = 500
-        self.pos_y = 900
+        self.pos_x = 465
+        self.pos_y = 800
         self.cooldown = cooldown
         self.window_size = window_size
         self.sound = sound
