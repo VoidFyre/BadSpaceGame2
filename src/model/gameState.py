@@ -68,9 +68,10 @@ class GameState():
             self.player.primary_weapon.shooting = False
 
         if mouse[2]:
-            proj = self.player.shoot_secondary()
-            if proj is not None:
-                self.projectiles.append(proj)
+            projs = self.player.shoot_secondary()
+            if projs is not None:
+                for proj in projs:
+                    self.projectiles.append(proj)
 
         if keys[pygame.K_ESCAPE]:
             self.pause = True
@@ -132,6 +133,10 @@ class GameState():
                         
                 elif proj.owner == "player":
                     for enemy in self.enemies:
+                        if proj.tracking and proj.tracking_obj is None and not enemy.tracked:
+                            proj.tracking_obj = enemy
+                            enemy.tracked = True
+                            enemy.tracked_obj = proj
                         if proj.collision(enemy):
                             enemy.hit(proj.damage)
                             proj.hit()

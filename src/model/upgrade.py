@@ -8,6 +8,7 @@ class Upgrade(ObjectMovable):
     def __init__(self, pos_x, pos_y, window_size, rarity):
         self.rarity = rarity
         self.sound = pygame.mixer.Sound("assets/sound/upgrade.ogg")
+        self.choices = ["ship", "primary", "secondary", "thruster", "shield"]
         images = {
             "uncommon": self.load_image("assets/item/upgradeorb/orb_uncommon.png", (30, 30)),
             "rare": self.load_image("assets/item/upgradeorb/orb_rare.png", (30, 30)),
@@ -21,57 +22,306 @@ class Upgrade(ObjectMovable):
         super().update()
         self.move_down()
 
+    def get_choice(self):
+        if self.choices:
+            return random.choice(self.choices)
+        else:
+            return None
+
     def random_upgrade(self, player):
-        rand_num = random.randint(0, 100)
-        if rand_num >= 0 and rand_num < 20:
-            if player.ship_rarity == "common" or player.ship_rarity == "uncommon":
-                player.ship_rarity = self.rarity
-                player.refil_health = True
-            
-            if player.ship_rarity == "rare" and self.rarity != "uncommon":
-                player.ship_rarity = self.rarity
-                player.refil_health = True
+        while True:
+            choice = self.get_choice()
+            if choice == None:
+                break
+            if choice == "primary":
+                if self.rarity == "uncommon":
+                    if player.primary_rarity == "common":
+                        player.primary_rarity = "uncommon"
+                        break
+                    else:
+                        self.choices.remove("primary")
+                        continue
+                if self.rarity == "rare":
+                    if player.primary_rarity == "common":
+                        player.primary_rarity = "uncommon"
+                        break
 
-            if player.ship_rarity == "epic" and self.rarity == "legendary":
-                player.ship_rarity = self.rarity
-                player.refil_health = True
-                
-        if rand_num >= 20 and rand_num < 40:
-            if player.primary_rarity == "common" or player.primary_rarity == "uncommon":
-                player.primary_rarity = self.rarity
-            
-            if player.primary_rarity == "rare" and self.rarity != "uncommon":
-                player.primary_rarity = self.rarity
+                    elif player.primary_rarity == "uncommon":
+                        player.primary_rarity = "rare"
+                        break
+                    else:
+                        self.choices.remove("primary")
+                        continue
+                if self.rarity == "epic":
+                    if player.primary_rarity == "common":
+                        player.primary_rarity = "uncommon"
+                        break
 
-            if player.primary_rarity == "epic" and self.rarity == "legendary":
-                player.primary_rarity = self.rarity
-        
-        if rand_num >= 40 and rand_num < 60:
-            if player.secondary_rarity == "common" or player.secondary_rarity == "uncommon":
-                player.secondary_rarity = self.rarity
-            
-            if player.secondary_rarity == "rare" and self.rarity != "uncommon":
-                player.secondary_rarity = self.rarity
+                    elif player.primary_rarity == "uncommon":
+                        player.primary_rarity = "rare"
+                        break
 
-            if player.secondary_rarity == "epic" and self.rarity == "legendary":
-                player.secondary_rarity = self.rarity
+                    elif player.primary_rarity == "rare":
+                        player.primary_rarity = "epic"
+                        break
 
-        if rand_num >= 60 and rand_num < 80:
-            if player.thruster_rarity == "common" or player.thruster_rarity == "uncommon":
-                player.thruster_rarity = self.rarity
-            
-            if player.thruster_rarity == "rare" and self.rarity != "uncommon":
-                player.thruster_rarity = self.rarity
+                    else:
+                        self.choices.remove("primary")
+                        continue
 
-            if player.thruster_rarity == "epic" and self.rarity == "legendary":
-                player.thruster_rarity = self.rarity
+                if self.rarity == "legendary":
+                    if player.primary_rarity == "common":
+                        player.primary_rarity = "uncommon"
+                        break
 
-        if rand_num >= 80:
-            if player.shield_rarity == "common" or player.shield_rarity == "uncommon":
-                player.shield_rarity = self.rarity
-            
-            if player.shield_rarity == "rare" and self.rarity != "uncommon":
-                player.shield_rarity = self.rarity
+                    elif player.primary_rarity == "uncommon":
+                        player.primary_rarity = "rare"
+                        break
 
-            if player.shield_rarity == "epic" and self.rarity == "legendary":
-                player.shield_rarity = self.rarity
+                    elif player.primary_rarity == "rare":
+                        player.primary_rarity = "epic"
+                        break
+
+                    elif player.primary_rarity == "epic":
+                        player.primary_rarity = "legendary"
+                        break
+
+                    else:
+                        self.choices.remove("primary")
+                        continue
+
+            if choice == "secondary":
+                if self.rarity == "uncommon":
+                    if player.secondary_rarity == "common":
+                        player.secondary_rarity = "uncommon"
+                        break
+
+                    else:
+                        self.choices.remove("secondary")
+                        continue
+                if self.rarity == "rare":
+                    if player.secondary_rarity == "common":
+                        player.secondary_rarity = "uncommon"
+                        break
+
+                    elif player.secondary_rarity == "uncommon":
+                        player.secondary_rarity = "rare"
+                        break
+
+                    else:
+                        self.choices.remove("secondary")
+                        continue
+                if self.rarity == "epic":
+                    if player.secondary_rarity == "common":
+                        player.secondary_rarity = "uncommon"
+                        break
+
+                    elif player.secondary_rarity == "uncommon":
+                        player.secondary_rarity = "rare"
+                        break
+
+                    elif player.secondary_rarity == "rare":
+                        player.secondary_rarity = "epic"
+                        break
+
+                    else:
+                        self.choices.remove("secondary")
+                        continue
+
+                if self.rarity == "legendary":
+                    if player.secondary_rarity == "common":
+                        player.secondary_rarity = "uncommon"
+                        break
+
+                    elif player.secondary_rarity == "uncommon":
+                        player.secondary_rarity = "rare"
+                        break
+
+                    elif player.secondary_rarity == "rare":
+                        player.secondary_rarity = "epic"
+                        break
+
+                    elif player.secondary_rarity == "epic":
+                        player.secondary_rarity = "legendary"
+                        break
+
+                    else:
+                        self.choices.remove("secondary")
+                        continue
+
+            if choice == "thruster":
+                if self.rarity == "uncommon":
+                    if player.thruster_rarity == "common":
+                        player.thruster_rarity = "uncommon"
+                        break
+
+                    else:
+                        self.choices.remove("thruster")
+                        continue
+                if self.rarity == "rare":
+                    if player.thruster_rarity == "common":
+                        player.thruster_rarity = "uncommon"
+                        break
+
+                    elif player.thruster_rarity == "uncommon":
+                        player.thruster_rarity = "rare"
+                        break
+
+                    else:
+                        self.choices.remove("thruster")
+                        continue
+                if self.rarity == "epic":
+                    if player.thruster_rarity == "common":
+                        player.thruster_rarity = "uncommon"
+                        break
+
+                    elif player.thruster_rarity == "uncommon":
+                        player.thruster_rarity = "rare"
+                        break
+
+                    elif player.thruster_rarity == "rare":
+                        player.thruster_rarity = "epic"
+                        break
+
+                    else:
+                        self.choices.remove("thruster")
+                        continue
+
+                if self.rarity == "legendary":
+                    if player.thruster_rarity == "common":
+                        player.thruster_rarity = "uncommon"
+                        break
+
+                    elif player.thruster_rarity == "uncommon":
+                        player.thruster_rarity = "rare"
+                        break
+
+                    elif player.thruster_rarity == "rare":
+                        player.thruster_rarity = "epic"
+                        break
+
+                    elif player.thruster_rarity == "epic":
+                        player.thruster_rarity = "legendary"
+                        break
+
+                    else:
+                        self.choices.remove("thruster")
+                        continue
+
+            if choice == "ship":
+                if self.rarity == "uncommon":
+                    if player.ship_rarity == "common":
+                        player.ship_rarity = "uncommon"
+                        break
+
+                    else:
+                        self.choices.remove("ship")
+                        continue
+                if self.rarity == "rare":
+                    if player.ship_rarity == "common":
+                        player.ship_rarity = "uncommon"
+                        break
+
+                    elif player.ship_rarity == "uncommon":
+                        player.ship_rarity = "rare"
+                        break
+
+                    else:
+                        self.choices.remove("ship")
+                        continue
+                if self.rarity == "epic":
+                    if player.ship_rarity == "common":
+                        player.ship_rarity = "uncommon"
+                        break
+
+                    elif player.ship_rarity == "uncommon":
+                        player.ship_rarity = "rare"
+                        break
+
+                    elif player.ship_rarity == "rare":
+                        player.ship_rarity = "epic"
+                        break
+
+                    else:
+                        self.choices.remove("ship")
+                        continue
+
+                if self.rarity == "legendary":
+                    if player.ship_rarity == "common":
+                        player.ship_rarity = "uncommon"
+                        break
+
+                    elif player.ship_rarity == "uncommon":
+                        player.ship_rarity = "rare"
+                        break
+
+                    elif player.ship_rarity == "rare":
+                        player.ship_rarity = "epic"
+                        break
+
+                    elif player.ship_rarity == "epic":
+                        player.ship_rarity = "legendary"
+                        break
+
+                    else:
+                        self.choices.remove("ship")
+                        continue
+
+            if choice == "shield":
+                if self.rarity == "uncommon":
+                    if player.shield_rarity == "common":
+                        player.shield_rarity = "uncommon"
+                        break
+
+                    else:
+                        self.choices.remove("shield")
+                        continue
+                if self.rarity == "rare":
+                    if player.shield_rarity == "common":
+                        player.shield_rarity = "uncommon"
+                        break
+
+                    elif player.shield_rarity == "uncommon":
+                        player.shield_rarity = "rare"
+                        break
+
+                    else:
+                        self.choices.remove("shield")
+                        continue
+                if self.rarity == "epic":
+                    if player.shield_rarity == "common":
+                        player.shield_rarity = "uncommon"
+                        break
+
+                    elif player.shield_rarity == "uncommon":
+                        player.shield_rarity = "rare"
+                        break
+
+                    elif player.shield_rarity == "rare":
+                        player.shield_rarity = "epic"
+                        break
+
+                    else:
+                        self.choices.remove("shield")
+                        continue
+
+                if self.rarity == "legendary":
+                    if player.shield_rarity == "common":
+                        player.shield_rarity = "uncommon"
+                        break
+
+                    elif player.shield_rarity == "uncommon":
+                        player.shield_rarity = "rare"
+                        break
+
+                    elif player.shield_rarity == "rare":
+                        player.shield_rarity = "epic"
+                        break
+
+                    elif player.shield_rarity == "epic":
+                        player.shield_rarity = "legendary"
+                        break
+
+                    else:
+                        self.choices.remove("shield")
+                        continue

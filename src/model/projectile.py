@@ -10,6 +10,7 @@ class Projectile(ObjectMovable):
 
     def update(self):
         super().update()
+
         if self.owner == "player":
             self.move_up()
 

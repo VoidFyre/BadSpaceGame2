@@ -16,6 +16,8 @@ class Enemy(ObjectMovable):
         self.direction = random.choice(["left", "right"])
         self.death_sound = pygame.mixer.Sound("assets/sound/death.ogg")
         self.hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
+        self.tracked = False
+        self.tracked_obj = None
 
         # Image Rarity Map
         image = {
@@ -51,7 +53,7 @@ class Enemy(ObjectMovable):
         }
 
         self.img = image[rarity]
-        self.projImg = projImage[rarity]
+        self.projImg = pygame.transform.rotate(projImage[rarity], 180)
         self.projDmg = projDamage[rarity]
         self.health_cur = health[rarity]
         self.health_max = health[rarity]
@@ -61,6 +63,13 @@ class Enemy(ObjectMovable):
         return Projectile(self.pos_x + self.img.get_width() / 2 - 15, self.pos_y + 50, 10, self.projImg, "enemy", self.window_size, self.projDmg, self.hit_sound)
     
     def update(self):
+        if self.tracked_obj is None:
+            self.tracked = False
+        else:
+            if self.tracked_obj.disabled:
+                self.tracking = False
+                self.tracked_obj = None
+
         if self.pos_y < self.pos_y_stop:
             self.move_down()
         elif self.direction == "left":

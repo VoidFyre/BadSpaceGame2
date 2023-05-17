@@ -26,7 +26,7 @@ class Shield():
         if self.broken:
             self.active = False
             self.broken = False
-            self.cooldown = 180
+            self.cooldown = 300
             self.recharge_sound.play()
 
         if self.health_cur > 0:

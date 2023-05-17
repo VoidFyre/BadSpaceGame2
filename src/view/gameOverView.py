@@ -145,12 +145,17 @@ class GameOverView():
         font = self.get_font(30)
 
         score = font.render("Score: " + str(self.game_state.player_score), True, "White")
-        score_rect = score.get_rect(center = (550, 400))
+        score_rect = score.get_rect(topleft = (450, 400))
 
         high_score = font.render("High Score: " + str(self.scores.high_score), True, "White")
-        high_score_rect = score.get_rect(center = (550, 500))
+        high_score_rect = score.get_rect(topleft = (450, 500))
+
+        new_high_score = font.render("NEW HIGH SCORE!", True, "Orange")
+        new_high_score_rect = new_high_score.get_rect(topleft = (450, 300))
 
         self.window.blit(score, score_rect)
         self.window.blit(high_score, high_score_rect)
+        if self.game_state.player_score > self.scores.high_score:
+            self.window.blit(new_high_score, new_high_score_rect)
 
         pygame.display.update()

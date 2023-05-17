@@ -29,7 +29,7 @@ class Component():
                 name_color = "Green",
                 img = self.load_image("assets/component/primary/weapon/primary_uncommon.png", (75, 75)),
                 proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_uncommon.png", (30, 30)),
-                proj_speed = 10,
+                proj_speed = 12,
                 damage = 150,
                 cooldown = 15,
                 window_size = self.window_size,
@@ -41,11 +41,11 @@ class Component():
                 name_color = "Blue",
                 img = self.load_image("assets/component/primary/weapon/primary_rare.png", (75, 75)),
                 proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_rare.png", (30, 30)),
-                proj_speed = 10,
+                proj_speed = 15,
                 damage = 150,
                 cooldown = 10,
                 window_size = self.window_size,
-                sound = pygame.mixer.Sound("assets/sound/laser_fire.ogg"),
+                sound = pygame.mixer.Sound("assets/sound/plasma_shot.wav"),
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
             "epic": WeaponBeam(
@@ -105,7 +105,9 @@ class Component():
                 sound = pygame.mixer.Sound("assets/sound/secondary_fire.ogg"),
                 exp_sound = pygame.mixer.Sound("assets/sound/explosion.wav"),
                 exp_dmg = 200,
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
+                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav"),
+                tracking = False,
+                proj_count = 1
             ),
             "uncommon": WeaponSecondary(
                 "Vector Rocket Launcher",
@@ -131,7 +133,9 @@ class Component():
                 sound = pygame.mixer.Sound("assets/sound/secondary_fire.ogg"),
                 exp_sound = pygame.mixer.Sound("assets/sound/explosion.wav"),
                 exp_dmg = 220,
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
+                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav"),
+                tracking = False,
+                proj_count = 1
             ),
             "rare": WeaponSecondary(
                 name = "Seismic Grenade Launcher",
@@ -157,7 +161,9 @@ class Component():
                 sound = pygame.mixer.Sound("assets/sound/secondary_fire.ogg"),
                 exp_sound = pygame.mixer.Sound("assets/sound/explosion.wav"),
                 exp_dmg = 250,
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
+                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav"),
+                tracking = True,
+                proj_count = 1
             ),
             "epic": WeaponSecondary(
                 name = "Singularity Cannon",
@@ -183,7 +189,9 @@ class Component():
                 sound = pygame.mixer.Sound("assets/sound/secondary_fire.ogg"),
                 exp_sound = pygame.mixer.Sound("assets/sound/explosion.wav"),
                 exp_dmg = 300,
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
+                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav"),
+                tracking = True,
+                proj_count = 1
             ),
             "legendary": WeaponSecondary(
                 name = "Solar Storm Cluster Launcher",
@@ -209,7 +217,9 @@ class Component():
                 sound = pygame.mixer.Sound("assets/sound/secondary_fire.ogg"),
                 exp_sound = pygame.mixer.Sound("assets/sound/explosion.wav"),
                 exp_dmg = 400,
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
+                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav"),
+                tracking = True,
+                proj_count = 6
             )
         }
 
@@ -220,11 +230,11 @@ class Component():
         LEGENDARY_SHIP_HP = 750
 
         self.ships = {
-            "common": (self.load_image("assets/component/ship/ship_common.png", (75, 75)), COMMON_SHIP_HP),
-            "uncommon": (self.load_image("assets/component/ship/ship_uncommon.png", (75, 75)), UNCOMMON_SHIP_HP),
-            "rare": (self.load_image("assets/component/ship/ship_rare.png", (75, 75)), RARE_SHIP_HP),
-            "epic": (self.load_image("assets/component/ship/ship_epic.png", (75, 75)), EPIC_SHIP_HP),
-            "legendary": (self.load_image("assets/component/ship/ship_legendary.png", (75, 75)), LEGENDARY_SHIP_HP),
+            "common": (self.load_image("assets/component/ship/ship_common.png", (75, 75)), COMMON_SHIP_HP, "Squadron Fighter Mk1", "White"),
+            "uncommon": (self.load_image("assets/component/ship/ship_uncommon.png", (75, 75)), UNCOMMON_SHIP_HP, "Squadron Interceptor", "Green"),
+            "rare": (self.load_image("assets/component/ship/ship_rare.png", (75, 75)), RARE_SHIP_HP, "Crescent Wing Bomber", "Blue"),
+            "epic": (self.load_image("assets/component/ship/ship_epic.png", (75, 75)), EPIC_SHIP_HP, "Axe Wing Executioner", "Purple"),
+            "legendary": (self.load_image("assets/component/ship/ship_legendary.png", (75, 75)), LEGENDARY_SHIP_HP, "Sun Wing Destroyer \"Gungnir\"", "Orange"),
         }
 
         self.thrusters = {

@@ -110,16 +110,16 @@ class GameView():
         font = self.get_font(20)
 
         ammo_counter = font.render("Ammo: " + str(self.game_state.player.secondary_weapon.ammo) + "/" + str(self.game_state.player.secondary_weapon.max_ammo), True, "White")
-        ammo_counter_rect = ammo_counter.get_rect(center = (850, 920))
+        ammo_counter_rect = ammo_counter.get_rect(topleft = (750, 920))
 
         wave_display = font.render("Wave: " + str(self.game_state.wave_counter), True, "White")
-        wave_display_rect = wave_display.get_rect(center = (900, 50))
+        wave_display_rect = wave_display.get_rect(topleft = (750, 50))
 
         remaining_enemies = font.render("Enemies: " + str(len(self.game_state.enemies)), True, "White")
-        remaining_enemies_rect = remaining_enemies.get_rect(center = (900, 80))
+        remaining_enemies_rect = remaining_enemies.get_rect(topleft = (750, 80))
 
         score = font.render("Score: " + str(self.game_state.player_score), True, "White")
-        score_rect = score.get_rect(center = (100, 50))
+        score_rect = score.get_rect(topleft = (50, 50))
 
         self.window.blit(ammo_counter, ammo_counter_rect)
         self.window.blit(wave_display, wave_display_rect)
