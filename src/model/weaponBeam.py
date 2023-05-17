@@ -3,8 +3,8 @@ from src.model.beam import Beam
 import pygame
 
 class WeaponBeam(Weapon):
-    def __init__(self, img, proj_anim, damage:int, window_size:tuple, sound, hit_sound):
-        super().__init__(img, proj_anim, None, damage, 0, window_size, sound, hit_sound)
+    def __init__(self, name:str, name_color:str, img, proj_anim, damage:int, window_size:tuple, sound, hit_sound):
+        super().__init__(name, name_color, img, proj_anim, None, damage, 0, window_size, sound, hit_sound)
         self.returned = False
         self.beam = Beam(self.proj_img, self.window_size, self.damage, self.hit_sound, (self.pos_x, self.pos_y))
         self.shooting = True

@@ -1,7 +1,9 @@
 from src.model.projectile import Projectile
 
 class Weapon():
-    def __init__(self, img, proj_img, proj_speed:int, damage:int, cooldown:int, window_size:tuple, sound, hit_sound):
+    def __init__(self, name:str, name_color:str, img, proj_img, proj_speed:int, damage:int, cooldown:int, window_size:tuple, sound, hit_sound):
+        self.name = name
+        self.name_color = name_color
         self.img = img
         self.proj_img = proj_img
         self.proj_speed = proj_speed

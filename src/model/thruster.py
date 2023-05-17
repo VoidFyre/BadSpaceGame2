@@ -1,7 +1,9 @@
 
 
 class Thruster():
-    def __init__(self, img, speed:int, window_size:tuple, special_sound):
+    def __init__(self, name:str, name_color:str, img, speed:int, window_size:tuple, special_sound):
+        self.name = name
+        self.name_color = name_color
         self.img = img
         self.pos_x = 465
         self.pos_y = 800

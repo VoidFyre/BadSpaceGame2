@@ -2,6 +2,7 @@ from src.function.collide import collide
 from src.function.loadImage import loadImage
 from src.function.flipImage import flipImageVert
 import pygame
+import math
 
 class ObjectMovable():
     def __init__(self, pos_x, pos_y, speed:int, img, window_size):
@@ -26,6 +27,16 @@ class ObjectMovable():
 
     def move_down(self):
         self.pos_y += self.speed
+
+    def move_toward_object(self, obj):
+        # Find direction vector (dx, dy) between self and object
+        dx, dy = obj.pos_x - self.pos_x, obj.pos_y - self.pos_y
+        dist = math.hypot(dx, dy)
+        dx, dy = dx / dist, dy / dist #Normalize
+
+        # Move along normalized vector at speed
+        self.pos_x += dx * self.speed
+        self.pos_y += dy * self.speed
 
     def update(self):
         if self.pos_y > self.window_height or self.pos_y < 0:

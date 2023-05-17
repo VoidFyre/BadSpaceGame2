@@ -13,6 +13,8 @@ class Component():
         
         self.primary_weapons = {
             "common": Weapon(
+                name = "Ballistic Repeater",
+                name_color = "White",
                 img = self.load_image("assets/component/primary/weapon/primary_common.png", (75, 75)),
                 proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_common.png", (30, 30)),
                 proj_speed = 10,
@@ -23,6 +25,8 @@ class Component():
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
             "uncommon": Weapon(
+                name = "Laser Rifle",
+                name_color = "Green",
                 img = self.load_image("assets/component/primary/weapon/primary_uncommon.png", (75, 75)),
                 proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_uncommon.png", (30, 30)),
                 proj_speed = 10,
@@ -33,6 +37,8 @@ class Component():
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
             "rare": Weapon(
+                name = "Plasma Thrower",
+                name_color = "Blue",
                 img = self.load_image("assets/component/primary/weapon/primary_rare.png", (75, 75)),
                 proj_img = self.load_image("assets/component/primary/projectile/projectile_primary_rare.png", (30, 30)),
                 proj_speed = 10,
@@ -43,6 +49,8 @@ class Component():
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
             "epic": WeaponBeam(
+                name = "Graviton Accelerator",
+                name_color = "Purple",
                 img = self.load_image("assets/component/primary/weapon/primary_epic.png", (75, 75)),
                 proj_anim = [
                     self.load_image("assets/component/primary/projectile/laser_epic1.png", (32, 1028)),
@@ -56,6 +64,8 @@ class Component():
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
             "legendary": WeaponBeam(
+                name = "Solar Radiation Ray",
+                name_color = "Orange",
                 img = self.load_image("assets/component/primary/weapon/primary_legendary.png", (75, 75)),
                 proj_anim = [
                     self.load_image("assets/component/primary/projectile/laser_legendary1.png", (32, 1028)),
@@ -72,6 +82,8 @@ class Component():
 
         self.secondary_weapons = {
             "common": WeaponSecondary(
+                name = "Rocket Launcher Mk1",
+                name_color = "White",
                 img = self.load_image("assets/component/secondary/weapon/secondary_common.png", (75, 75)),
                 proj_img = self.load_image("assets/component/secondary/projectile/projectile_secondary_common.png", (30, 30)),
                 proj_exp_anim = [
@@ -96,6 +108,8 @@ class Component():
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
             "uncommon": WeaponSecondary(
+                "Vector Rocket Launcher",
+                name_color = "Green",
                 img = self.load_image("assets/component/secondary/weapon/secondary_uncommon.png", (75, 75)),
                 proj_img = self.load_image("assets/component/secondary/projectile/projectile_secondary_uncommon.png", (30, 30)),
                 proj_exp_anim = [
@@ -120,6 +134,8 @@ class Component():
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
             "rare": WeaponSecondary(
+                name = "Seismic Grenade Launcher",
+                name_color = "Blue",
                 img = self.load_image("assets/component/secondary/weapon/secondary_rare.png", (75, 75)),
                 proj_img = self.load_image("assets/component/secondary/projectile/projectile_secondary_rare.png", (30, 30)),
                 proj_exp_anim = [
@@ -144,6 +160,8 @@ class Component():
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
             "epic": WeaponSecondary(
+                name = "Singularity Cannon",
+                name_color = "Purple",
                 img = self.load_image("assets/component/secondary/weapon/secondary_epic.png", (75, 75)),
                 proj_img = self.load_image("assets/component/secondary/projectile/projectile_secondary_epic.png", (30, 30)),
                 proj_exp_anim = [
@@ -168,6 +186,8 @@ class Component():
                 hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
             ),
             "legendary": WeaponSecondary(
+                name = "Solar Storm Cluster Launcher",
+                name_color = "Orange",
                 img = self.load_image("assets/component/secondary/weapon/secondary_legendary.png", (75, 75)),
                 proj_img = self.load_image("assets/component/secondary/projectile/projectile_secondary_legendary.png", (30, 30)),
                 proj_exp_anim = [
@@ -193,40 +213,56 @@ class Component():
             )
         }
 
+        COMMON_SHIP_HP = 100
+        UNCOMMON_SHIP_HP = 150
+        RARE_SHIP_HP = 250
+        EPIC_SHIP_HP = 400
+        LEGENDARY_SHIP_HP = 750
+
         self.ships = {
-            "common": (self.load_image("assets/component/ship/ship_common.png", (75, 75)), 100),
-            "uncommon": (self.load_image("assets/component/ship/ship_uncommon.png", (75, 75)), 150),
-            "rare": (self.load_image("assets/component/ship/ship_rare.png", (75, 75)), 250),
-            "epic": (self.load_image("assets/component/ship/ship_epic.png", (75, 75)), 400),
-            "legendary": (self.load_image("assets/component/ship/ship_legendary.png", (75, 75)), 750),
+            "common": (self.load_image("assets/component/ship/ship_common.png", (75, 75)), COMMON_SHIP_HP),
+            "uncommon": (self.load_image("assets/component/ship/ship_uncommon.png", (75, 75)), UNCOMMON_SHIP_HP),
+            "rare": (self.load_image("assets/component/ship/ship_rare.png", (75, 75)), RARE_SHIP_HP),
+            "epic": (self.load_image("assets/component/ship/ship_epic.png", (75, 75)), EPIC_SHIP_HP),
+            "legendary": (self.load_image("assets/component/ship/ship_legendary.png", (75, 75)), LEGENDARY_SHIP_HP),
         }
 
         self.thrusters = {
             "common": Thruster(
+                name = "Ion Thruster Mk1",
+                name_color = "White",
                 img = self.load_image("assets/component/thruster/thruster_common.png", (75, 75)),
                 speed = 5,
                 window_size = self.window_size,
                 special_sound = None
             ),
             "uncommon": Thruster(
+                name = "Ion Thruster Mk2 Boost",
+                name_color = "Green",
                 img = self.load_image("assets/component/thruster/thruster_uncommon.png", (75, 75)),
                 speed = 6,
                 window_size = self.window_size,
                 special_sound = None
             ),
             "rare": Thruster(
+                name = "Plasmatic Afterburner",
+                name_color = "Blue",
                 img = self.load_image("assets/component/thruster/thruster_rare.png", (75, 75)),
                 speed = 7,
                 window_size = self.window_size,
                 special_sound = None
             ),
             "epic": Thruster(
+                name = "Wormhole Blink Drive",
+                name_color = "Purple",
                 img = self.load_image("assets/component/thruster/thruster_epic.png", (75, 75)),
                 speed = 9,
                 window_size = self.window_size,
                 special_sound = None
             ),
             "legendary": Thruster(
+                "Hyperion Lightspeed Drive",
+                name_color = "Orange",
                 img = self.load_image("assets/component/thruster/thruster_legendary.png", (75, 75)),
                 speed = 12,
                 window_size = self.window_size,
@@ -234,26 +270,42 @@ class Component():
             )
         }
 
+        COMMON_SHIELD_HP = 50
+        UNCOMMON_SHIELD_HP = 100
+        RARE_SHIELD_HP = 150
+        EPIC_SHIELD_HP = 250
+        LEGENDARY_SHIELD_HP = 400
+
         self.shields = {
             "common": Shield(
+                name = "Deflector Mk1",
+                name_color = "White",
                 img = self.load_image("assets/component/shield/shield_common.png", (95, 95)),
-                health = 50
+                health = COMMON_SHIELD_HP
             ),
             "uncommon": Shield(
+                name = "Laser Deflector",
+                name_color = "Green",
                 img = self.load_image("assets/component/shield/shield_uncommon.png", (95, 95)),
-                health = 100
+                health = UNCOMMON_SHIELD_HP
             ),
             "rare": Shield(
+                name = "Plasma Projector Shield",
+                name_color = "Blue",
                 img = self.load_image("assets/component/shield/shield_rare.png", (95, 95)),
-                health = 150
+                health = RARE_SHIELD_HP
             ),
             "epic": Shield(
+                name = "Graviton Well Absorption Shield",
+                name_color = "Purple",
                 img = self.load_image("assets/component/shield/shield_epic.png", (95, 95)),
-                health = 250
+                health = EPIC_SHIELD_HP
             ),
             "legendary": Shield(
+                name = "Sunbeam Projector Shield",
+                name_color = "Orange",
                 img = self.load_image("assets/component/shield/shield_legendary.png", (95, 95)),
-                health = 400
+                health = LEGENDARY_SHIELD_HP
             ),
         }
 

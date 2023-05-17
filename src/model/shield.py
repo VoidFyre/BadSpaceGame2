@@ -1,7 +1,9 @@
 import pygame
 
 class Shield():
-    def __init__(self, img, health:int):
+    def __init__(self, name:str, name_color:str, img, health:int):
+        self.name = name
+        self.name_color = name_color
         self.pos_x = 465
         self.pos_y = 800
         self.img = img

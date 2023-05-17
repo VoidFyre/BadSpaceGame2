@@ -2,8 +2,8 @@ from src.model.weapon import Weapon
 from src.model.projectileExploding import ProjectileExploding
 
 class WeaponSecondary(Weapon):
-    def __init__(self, img, proj_img, proj_exp_anim, proj_speed:int, damage:int, cooldown:int, ammo:int, max_ammo:int, window_size:tuple, sound, exp_sound, exp_dmg, hit_sound):
-        super().__init__(img, proj_img, proj_speed, damage, cooldown, window_size, sound, None)
+    def __init__(self, name:str, name_color:str, img, proj_img, proj_exp_anim, proj_speed:int, damage:int, cooldown:int, ammo:int, max_ammo:int, window_size:tuple, sound, exp_sound, exp_dmg, hit_sound):
+        super().__init__(name, name_color, img, proj_img, proj_speed, damage, cooldown, window_size, sound, None)
         self.proj_exp_anim = proj_exp_anim
         self.ammo = ammo
         self.max_ammo = max_ammo
