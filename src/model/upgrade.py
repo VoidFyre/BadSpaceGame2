@@ -83,6 +83,9 @@ class Upgrade(ObjectMovable):
                         break
 
                     elif player.primary_rarity == "epic":
+                        player.primary_weapon.shooting = False
+                        player.primary_weapon.beam.disabled = True
+                        player.primary_weapon.stop_shoot_sound()
                         player.primary_rarity = "legendary"
                         break
 

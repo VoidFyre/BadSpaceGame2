@@ -283,8 +283,7 @@ class GameState():
             self.spawn_enemy()
 
             self.get_input()
-            self.player.update()
-
+            
             self.projectile_enemy_collision_check()
             self.explosion_enemy_collision_check()
             self.player_enemy_collision_check()
@@ -293,6 +292,8 @@ class GameState():
             self.update_health_packs()
             self.update_ammo_packs()
             self.update_asteroids()
+
+            self.player.update()
 
             if self.player.dead:
                 if self.death_timer > 0:

@@ -51,6 +51,7 @@ class GameController():
         self.game_view.run()
         if self.game_state.pause == True:
             self.view_mode = "pause"
+            pygame.mixer.stop()
             self.game_state.pause = False
 
         if self.game_state.game_lost:
