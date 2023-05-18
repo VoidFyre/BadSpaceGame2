@@ -17,6 +17,14 @@ class Player(ObjectMovable):
         self.ship_rarity = "common"
         self.thruster_rarity = "common"
         self.shield_rarity = "common"
+
+        self.new_primary = False
+        self.new_secondary = False
+        self.new_thruster = False
+        self.new_ship = False
+        self.new_shield = False
+        self.new_display_timer = 120
+
         self.img, self.health_max, self.ship_name, self.ship_name_color = self.component.get_ship(self.ship_rarity)
         self.primary_weapon = self.component.get_primary(self.primary_rarity)
         self.secondary_weapon = self.component.get_secondary(self.secondary_rarity)
@@ -86,6 +94,52 @@ class Player(ObjectMovable):
             self.health_cur = self.health_max
 
 
+    def get_font(self, size):
+        return pygame.font.Font("assets/interface/font/joystix.otf", size)
+
+    def display_upgrades(self, window):
+
+        font = self.get_font(12)
+
+        if self.new_ship:
+            if self.new_display_timer > 0:
+                self.new_display_timer -= 1
+                new_upgrade = font.render(self.ship_rarity + " ship upgrade: " + self.ship_name, True, self.ship_name_color)
+                new_upgrade_rect = new_upgrade.get_rect(topleft = (300, 900))
+                window.blit(new_upgrade, new_upgrade_rect)
+        elif self.new_primary:
+            if self.new_display_timer > 0:
+                self.new_display_timer -= 1
+                new_upgrade = font.render(self.primary_rarity + " primary upgrade: " + self.primary_weapon.name, True, self.primary_weapon.name_color)
+                new_upgrade_rect = new_upgrade.get_rect(topleft = (300, 900))
+                window.blit(new_upgrade, new_upgrade_rect)
+        elif self.new_secondary:
+            if self.new_display_timer > 0:
+                self.new_display_timer -= 1
+                new_upgrade = font.render(self.secondary_rarity + " secondary upgrade: " + self.secondary_weapon.name, True, self.secondary_weapon.name_color)
+                new_upgrade_rect = new_upgrade.get_rect(topleft = (300, 900))
+                window.blit(new_upgrade, new_upgrade_rect)
+        elif self.new_shield:
+            if self.new_display_timer > 0:
+                self.new_display_timer -= 1
+                new_upgrade = font.render(self.shield_rarity + " shield upgrade: " + self.shield.name, True, self.shield.name_color)
+                new_upgrade_rect = new_upgrade.get_rect(topleft = (300, 900))
+                window.blit(new_upgrade, new_upgrade_rect)
+        elif self.new_thruster:
+            if self.new_display_timer > 0:
+                self.new_display_timer -= 1
+                new_upgrade = font.render(self.thruster_rarity + " thruster upgrade: " + self.thruster.name, True, self.thruster.name_color)
+                new_upgrade_rect = new_upgrade.get_rect(topleft = (300, 900))
+                window.blit(new_upgrade, new_upgrade_rect)
+
+        if self.new_display_timer == 0:
+            self.new_display_timer = 120
+            self.new_ship = False
+            self.new_primary = False
+            self.new_secondary = False
+            self.new_shield = False
+            self.new_thruster = False
+
     def render(self, window):
         if not self.disabled:
             window.blit(self.img, (self.pos_x, self.pos_y))
@@ -95,6 +149,7 @@ class Player(ObjectMovable):
             self.shield.render(window)
             self.healthbar(window)
             self.shield.healthbar(window)
+            self.display_upgrades(window)
         
     def healthbar(self, window):
         pygame.draw.rect(window, (255, 0, 0), (300, 950, 400, 20))

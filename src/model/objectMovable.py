@@ -56,7 +56,7 @@ class ObjectMovable():
             window.blit(self.img, (self.pos_x, self.pos_y))
 
     def collision(self, obj):
-        return collide(self, obj)
+        return collide(self, obj) and not self.disabled
     
     def load_image(self, path:str, size:tuple):
         return loadImage(path, size)

@@ -37,6 +37,7 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "uncommon":
                     if player.primary_rarity == "common":
                         player.primary_rarity = "uncommon"
+                        player.new_primary = True
                         break
                     else:
                         self.choices.remove("primary")
@@ -44,10 +45,12 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "rare":
                     if player.primary_rarity == "common":
                         player.primary_rarity = "uncommon"
+                        player.new_primary = True
                         break
 
                     elif player.primary_rarity == "uncommon":
                         player.primary_rarity = "rare"
+                        player.new_primary = True
                         break
                     else:
                         self.choices.remove("primary")
@@ -55,14 +58,17 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "epic":
                     if player.primary_rarity == "common":
                         player.primary_rarity = "uncommon"
+                        player.new_primary = True
                         break
 
                     elif player.primary_rarity == "uncommon":
                         player.primary_rarity = "rare"
+                        player.new_primary = True
                         break
 
                     elif player.primary_rarity == "rare":
                         player.primary_rarity = "epic"
+                        player.new_primary = True
                         break
 
                     else:
@@ -72,14 +78,17 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "legendary":
                     if player.primary_rarity == "common":
                         player.primary_rarity = "uncommon"
+                        player.new_primary = True
                         break
 
                     elif player.primary_rarity == "uncommon":
                         player.primary_rarity = "rare"
+                        player.new_primary = True
                         break
 
                     elif player.primary_rarity == "rare":
                         player.primary_rarity = "epic"
+                        player.new_primary = True
                         break
 
                     elif player.primary_rarity == "epic":
@@ -87,6 +96,7 @@ class Upgrade(ObjectMovable):
                         player.primary_weapon.beam.disabled = True
                         player.primary_weapon.stop_shoot_sound()
                         player.primary_rarity = "legendary"
+                        player.new_primary = True
                         break
 
                     else:
@@ -97,6 +107,7 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "uncommon":
                     if player.secondary_rarity == "common":
                         player.secondary_rarity = "uncommon"
+                        player.new_secondary = True
                         break
 
                     else:
@@ -105,10 +116,12 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "rare":
                     if player.secondary_rarity == "common":
                         player.secondary_rarity = "uncommon"
+                        player.new_secondary = True
                         break
 
                     elif player.secondary_rarity == "uncommon":
                         player.secondary_rarity = "rare"
+                        player.new_secondary = True
                         break
 
                     else:
@@ -117,14 +130,17 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "epic":
                     if player.secondary_rarity == "common":
                         player.secondary_rarity = "uncommon"
+                        player.new_secondary = True
                         break
 
                     elif player.secondary_rarity == "uncommon":
                         player.secondary_rarity = "rare"
+                        player.new_secondary = True
                         break
 
                     elif player.secondary_rarity == "rare":
                         player.secondary_rarity = "epic"
+                        player.new_secondary = True
                         break
 
                     else:
@@ -134,18 +150,22 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "legendary":
                     if player.secondary_rarity == "common":
                         player.secondary_rarity = "uncommon"
+                        player.new_secondary = True
                         break
 
                     elif player.secondary_rarity == "uncommon":
                         player.secondary_rarity = "rare"
+                        player.new_secondary = True
                         break
 
                     elif player.secondary_rarity == "rare":
                         player.secondary_rarity = "epic"
+                        player.new_secondary = True
                         break
 
                     elif player.secondary_rarity == "epic":
                         player.secondary_rarity = "legendary"
+                        player.new_secondary = True
                         break
 
                     else:
@@ -156,6 +176,7 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "uncommon":
                     if player.thruster_rarity == "common":
                         player.thruster_rarity = "uncommon"
+                        player.new_thruster = True
                         break
 
                     else:
@@ -164,10 +185,12 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "rare":
                     if player.thruster_rarity == "common":
                         player.thruster_rarity = "uncommon"
+                        player.new_thruster = True
                         break
 
                     elif player.thruster_rarity == "uncommon":
                         player.thruster_rarity = "rare"
+                        player.new_thruster = True
                         break
 
                     else:
@@ -176,14 +199,17 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "epic":
                     if player.thruster_rarity == "common":
                         player.thruster_rarity = "uncommon"
+                        player.new_thruster = True
                         break
 
                     elif player.thruster_rarity == "uncommon":
                         player.thruster_rarity = "rare"
+                        player.new_thruster = True
                         break
 
                     elif player.thruster_rarity == "rare":
                         player.thruster_rarity = "epic"
+                        player.new_thruster = True
                         break
 
                     else:
@@ -193,18 +219,22 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "legendary":
                     if player.thruster_rarity == "common":
                         player.thruster_rarity = "uncommon"
+                        player.new_thruster = True
                         break
 
                     elif player.thruster_rarity == "uncommon":
                         player.thruster_rarity = "rare"
+                        player.new_thruster = True
                         break
 
                     elif player.thruster_rarity == "rare":
                         player.thruster_rarity = "epic"
+                        player.new_thruster = True
                         break
 
                     elif player.thruster_rarity == "epic":
                         player.thruster_rarity = "legendary"
+                        player.new_thruster = True
                         break
 
                     else:
@@ -215,6 +245,7 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "uncommon":
                     if player.ship_rarity == "common":
                         player.ship_rarity = "uncommon"
+                        player.new_ship = True
                         break
 
                     else:
@@ -223,10 +254,12 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "rare":
                     if player.ship_rarity == "common":
                         player.ship_rarity = "uncommon"
+                        player.new_ship = True
                         break
 
                     elif player.ship_rarity == "uncommon":
                         player.ship_rarity = "rare"
+                        player.new_ship = True
                         break
 
                     else:
@@ -235,14 +268,17 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "epic":
                     if player.ship_rarity == "common":
                         player.ship_rarity = "uncommon"
+                        player.new_ship = True
                         break
 
                     elif player.ship_rarity == "uncommon":
                         player.ship_rarity = "rare"
+                        player.new_ship = True
                         break
 
                     elif player.ship_rarity == "rare":
                         player.ship_rarity = "epic"
+                        player.new_ship = True
                         break
 
                     else:
@@ -252,18 +288,22 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "legendary":
                     if player.ship_rarity == "common":
                         player.ship_rarity = "uncommon"
+                        player.new_ship = True
                         break
 
                     elif player.ship_rarity == "uncommon":
                         player.ship_rarity = "rare"
+                        player.new_ship = True
                         break
 
                     elif player.ship_rarity == "rare":
                         player.ship_rarity = "epic"
+                        player.new_ship = True
                         break
 
                     elif player.ship_rarity == "epic":
                         player.ship_rarity = "legendary"
+                        player.new_ship = True
                         break
 
                     else:
@@ -274,6 +314,7 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "uncommon":
                     if player.shield_rarity == "common":
                         player.shield_rarity = "uncommon"
+                        player.new_shield = True
                         break
 
                     else:
@@ -282,10 +323,12 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "rare":
                     if player.shield_rarity == "common":
                         player.shield_rarity = "uncommon"
+                        player.new_shield = True
                         break
 
                     elif player.shield_rarity == "uncommon":
                         player.shield_rarity = "rare"
+                        player.new_shield = True
                         break
 
                     else:
@@ -294,14 +337,17 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "epic":
                     if player.shield_rarity == "common":
                         player.shield_rarity = "uncommon"
+                        player.new_shield = True
                         break
 
                     elif player.shield_rarity == "uncommon":
                         player.shield_rarity = "rare"
+                        player.new_shield = True
                         break
 
                     elif player.shield_rarity == "rare":
                         player.shield_rarity = "epic"
+                        player.new_shield = True
                         break
 
                     else:
@@ -311,18 +357,22 @@ class Upgrade(ObjectMovable):
                 if self.rarity == "legendary":
                     if player.shield_rarity == "common":
                         player.shield_rarity = "uncommon"
+                        player.new_shield = True
                         break
 
                     elif player.shield_rarity == "uncommon":
                         player.shield_rarity = "rare"
+                        player.new_shield = True
                         break
 
                     elif player.shield_rarity == "rare":
                         player.shield_rarity = "epic"
+                        player.new_shield = True
                         break
 
                     elif player.shield_rarity == "epic":
                         player.shield_rarity = "legendary"
+                        player.new_shield = True
                         break
 
                     else:
