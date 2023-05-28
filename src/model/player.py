@@ -4,8 +4,9 @@ from src.model.component import Component
 from src.model.shipExplosion import ShipExplosion
 
 class Player(ObjectMovable):
-    def __init__(self, pos_x, pos_y, window_size: tuple):
-        self.component = Component(window_size)
+    def __init__(self, pos_x, pos_y, window_size: tuple, sounds):
+        self.component = Component(window_size, sounds)
+        self.sounds = sounds
         
         self.window_width = window_size[0]
         self.window_height = window_size[1]
@@ -32,8 +33,6 @@ class Player(ObjectMovable):
         self.shield = self.component.get_shield(self.shield_rarity)
         self.refil_health = False
         self.dead = False
-        self.death_sound = pygame.mixer.Sound("assets/sound/death.ogg")
-        self.death_shock = pygame.mixer.Sound("assets/sound/death_shock.wav")
         
 
         
@@ -161,13 +160,13 @@ class Player(ObjectMovable):
         else: 
             self.health_cur -= damage
         if self.health_cur <= 0 and not self.dead:
-            self.death_shock.play()
+            self.sounds.death_shock.play()
             self.dead = True
 
     def kill(self):
         self.disabled = True
-        self.death_shock.stop()
-        self.death_sound.play()
+        self.sounds.death_shock.stop()
+        self.sounds.death.play()
         return ShipExplosion(self.pos_x - 25, self.pos_y - 20)
 
     def refil_ammo(self):

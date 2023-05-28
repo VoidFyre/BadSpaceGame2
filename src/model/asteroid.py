@@ -3,8 +3,9 @@ import random
 import pygame
 
 class Asteroid(ObjectMovable):
-    def __init__(self, pos_x, pos_y, window_size):
+    def __init__(self, pos_x, pos_y, window_size, sounds):
         img = self.load_image("assets/item/asteroid1.png", (150, 150))
+        self.sounds = sounds
         super().__init__(pos_x, pos_y, random.randint(3, 6), img, window_size)
         self.health = 900
         self.anim = [
@@ -18,14 +19,12 @@ class Asteroid(ObjectMovable):
         self.destroyed = False
         self.anim_timer = 6
         
-        self.break_sound = pygame.mixer.Sound("assets/sound/rock_break.wav")
-
         
         
     def hit(self, damage):
         self.health -= damage
         if self.health <= 0 and not self.disabled:
-            self.break_sound.play()
+            self.sounds.rock_break.play()
             self.destroyed = True
 
     def update(self):

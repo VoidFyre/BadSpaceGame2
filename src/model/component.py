@@ -7,9 +7,10 @@ from src.model.shield import Shield
 from src.model.weaponBeam import WeaponBeam
 
 class Component():
-    def __init__(self, window_size):
+    def __init__(self, window_size, sounds):
 
         self.window_size = window_size
+        self.sounds = sounds
         
         self.primary_weapons = {
             "common": Weapon(
@@ -22,7 +23,7 @@ class Component():
                 cooldown = 15,
                 window_size = self.window_size,
                 sound = pygame.mixer.Sound("assets/sound/gunshot.wav"),
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
+                hit_sound = self.sounds.hit
             ),
             "uncommon": Weapon(
                 name = "Laser Rifle",
@@ -34,7 +35,7 @@ class Component():
                 cooldown = 15,
                 window_size = self.window_size,
                 sound = pygame.mixer.Sound("assets/sound/laser_fire.ogg"),
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
+                hit_sound = self.sounds.hit
             ),
             "rare": Weapon(
                 name = "Plasma Thrower",
@@ -46,7 +47,7 @@ class Component():
                 cooldown = 10,
                 window_size = self.window_size,
                 sound = pygame.mixer.Sound("assets/sound/plasma_shot.wav"),
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
+                hit_sound = self.sounds.hit
             ),
             "epic": WeaponBeam(
                 name = "Graviton Accelerator",
@@ -61,7 +62,7 @@ class Component():
                 damage = 10,
                 window_size = self.window_size,
                 sound = pygame.mixer.Sound("assets/sound/beam_fire.ogg"),
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
+                hit_sound = self.sounds.hit
             ),
             "legendary": WeaponBeam(
                 name = "Solar Radiation Ray",
@@ -76,7 +77,7 @@ class Component():
                 damage = 15,
                 window_size = self.window_size,
                 sound = pygame.mixer.Sound("assets/sound/beam_fire.ogg"),
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav")
+                hit_sound = self.sounds.hit
             )
         }
 
@@ -102,10 +103,10 @@ class Component():
                 ammo = 10,
                 max_ammo = 10,
                 window_size = self.window_size,
-                sound = pygame.mixer.Sound("assets/sound/secondary_fire.ogg"),
-                exp_sound = pygame.mixer.Sound("assets/sound/explosion.wav"),
+                sound = self.sounds.secondary_fire,
+                exp_sound = self.sounds.explosion,
                 exp_dmg = 200,
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav"),
+                hit_sound = self.sounds.hit,
                 tracking = False,
                 proj_count = 1
             ),
@@ -130,10 +131,10 @@ class Component():
                 ammo = 10,
                 max_ammo = 10,
                 window_size = self.window_size,
-                sound = pygame.mixer.Sound("assets/sound/secondary_fire.ogg"),
-                exp_sound = pygame.mixer.Sound("assets/sound/explosion.wav"),
+                sound = self.sounds.secondary_fire,
+                exp_sound = self.sounds.explosion,
                 exp_dmg = 220,
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav"),
+                hit_sound = self.sounds.hit,
                 tracking = False,
                 proj_count = 1
             ),
@@ -158,10 +159,10 @@ class Component():
                 ammo = 10,
                 max_ammo = 10,
                 window_size = self.window_size,
-                sound = pygame.mixer.Sound("assets/sound/secondary_fire.ogg"),
-                exp_sound = pygame.mixer.Sound("assets/sound/explosion.wav"),
+                sound = self.sounds.secondary_fire,
+                exp_sound = self.sounds.explosion,
                 exp_dmg = 250,
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav"),
+                hit_sound = self.sounds.hit,
                 tracking = True,
                 proj_count = 1
             ),
@@ -186,10 +187,10 @@ class Component():
                 ammo = 10,
                 max_ammo = 10,
                 window_size = self.window_size,
-                sound = pygame.mixer.Sound("assets/sound/secondary_fire.ogg"),
-                exp_sound = pygame.mixer.Sound("assets/sound/explosion.wav"),
+                sound = self.sounds.secondary_fire,
+                exp_sound = self.sounds.explosion,
                 exp_dmg = 300,
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav"),
+                hit_sound = self.sounds.hit,
                 tracking = True,
                 proj_count = 1
             ),
@@ -214,10 +215,10 @@ class Component():
                 ammo = 10,
                 max_ammo = 10,
                 window_size = self.window_size,
-                sound = pygame.mixer.Sound("assets/sound/secondary_fire.ogg"),
-                exp_sound = pygame.mixer.Sound("assets/sound/explosion.wav"),
+                sound = self.sounds.secondary_fire,
+                exp_sound = self.sounds.explosion,
                 exp_dmg = 400,
-                hit_sound = pygame.mixer.Sound("assets/sound/hit.wav"),
+                hit_sound = self.sounds.hit,
                 tracking = True,
                 proj_count = 6
             )

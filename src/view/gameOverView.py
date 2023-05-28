@@ -2,10 +2,11 @@ import pygame, sys
 from src.model.button import Button
 
 class GameOverView():
-    def __init__(self, window, game_state, scores):
+    def __init__(self, window, game_state, scores, sounds):
         self.game_state = game_state
         self.window = window
         self.scores = scores
+        self.sounds = sounds
         pygame.init()
 
         # Setting up background images
@@ -22,7 +23,6 @@ class GameOverView():
         self.scroll_3 = 0
         self.scroll_4 = 0
         self.scroll_5 = 0
-        self.button_sound = pygame.mixer.Sound("assets/sound/button_press.ogg")
 
     def get_button_pressed(self):
         pressed = self.button_pressed
@@ -131,11 +131,11 @@ class GameOverView():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if main_menu_button.checkForInput(menu_mouse_pos):
-                    self.button_sound.play()
+                    self.sounds.button_press.play()
                     self.button_pressed = "main"
 
                 if restart_button.checkForInput(menu_mouse_pos):
-                    self.button_sound.play()
+                    self.sounds.button_press.play()
                     self.button_pressed = "restart"
 
                 if quit_button.checkForInput(menu_mouse_pos):

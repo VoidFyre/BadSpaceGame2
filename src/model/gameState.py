@@ -12,9 +12,10 @@ import pygame
 import random
 
 class GameState():
-    def __init__(self, window_size: tuple, scores):
+    def __init__(self, window_size: tuple, scores, sounds):
         self.scores = scores
-        self.player = Player(465, 800, window_size)
+        self.sounds = sounds
+        self.player = Player(465, 800, window_size, sounds)
         self.enemies = []
         self.projectiles = []
         self.explosions = []
@@ -141,7 +142,7 @@ class GameState():
                             enemy.hit(proj.damage)
                             proj.hit()
                             if isinstance(proj, ProjectileExploding):
-                                proj.exp_sound.play()
+                                self.sounds.explosion.play()
                                 self.explosions.append(proj.explode())
                             
             else:
@@ -193,7 +194,7 @@ class GameState():
                 else:
                     self.player.health_cur = self.player.health_max
 
-                health_pack.sound.play()
+                self.sounds.health_pack.play()
                 health_pack.disabled = True
 
     def update_ammo_packs(self):
@@ -204,7 +205,7 @@ class GameState():
                     self.ammo_packs.remove(ammo_pack)
             elif ammo_pack.collision(self.player):
                 self.player.refil_ammo()
-                ammo_pack.sound.play()
+                self.sounds.reload.play()
                 ammo_pack.disabled = True
 
     def update_upgrades(self):
@@ -214,7 +215,7 @@ class GameState():
                 if upgrade in self.upgrades:
                     self.upgrades.remove(upgrade)
             elif upgrade.collision(self.player):
-                upgrade.sound.play()
+                self.sounds.upgrade.play()
                 upgrade.random_upgrade(self.player)
                 upgrade.disabled = True
 
@@ -237,7 +238,7 @@ class GameState():
                 
     def spawn_asteroid(self):
         x = random.randint(0, 900)
-        self.asteroids.append(Asteroid(x, -200, self.window_size))
+        self.asteroids.append(Asteroid(x, -200, self.window_size, self.sounds))
 
     def update_score(self, rarity):
         if rarity == "common":

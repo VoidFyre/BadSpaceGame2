@@ -2,9 +2,10 @@ import pygame, sys
 from src.model.player import Player
 
 class GameController():
-    def __init__(self, game_state, views: list, fps: int, options):
+    def __init__(self, game_state, views: list, fps: int, options, sounds):
         self.FPS = fps
         self.game_state = game_state
+        self.sounds = sounds
         self.game_view, self.main_menu_view, self.game_over_view, self.pause_menu_view, self.options_view, self.credits_view = views
         self.keep_running = True
         self.view_mode = "main"
@@ -13,7 +14,7 @@ class GameController():
         self.options = options
 
     def reset(self):
-        self.game_state.__init__((self.game_state.window_width, self.game_state.window_height), self.game_state.scores)
+        self.game_state.__init__((self.game_state.window_width, self.game_state.window_height), self.game_state.scores, self.sounds)
 
     def run(self):
         pygame.mixer.music.set_volume(self.options.volume)
