@@ -31,7 +31,7 @@ class Player(ObjectMovable):
         self.secondary_weapon = self.component.get_secondary(self.secondary_rarity)
         self.thruster = self.component.get_thruster(self.thruster_rarity)
         self.shield = self.component.get_shield(self.shield_rarity)
-        self.refil_health = False
+        self.refill_health = False
         self.dead = False
         
 
@@ -82,14 +82,14 @@ class Player(ObjectMovable):
         self.thruster = self.component.get_thruster(self.thruster_rarity)
         self.shield = self.component.get_shield(self.shield_rarity)
 
-        if not self.dead:
-            self.primary_weapon.update((self.pos_x, self.pos_y))
-            self.secondary_weapon.update((self.pos_x, self.pos_y))
-            self.thruster.update((self.pos_x, self.pos_y))
-            self.shield.update((self.pos_x, self.pos_y))
+        
+        self.primary_weapon.update((self.pos_x, self.pos_y))
+        self.secondary_weapon.update((self.pos_x, self.pos_y))
+        self.thruster.update((self.pos_x, self.pos_y))
+        self.shield.update((self.pos_x, self.pos_y))
 
-        if self.refil_health:
-            self.refil_health = False
+        if self.refill_health:
+            self.refill_health = False
             self.health_cur = self.health_max
 
 

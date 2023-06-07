@@ -246,6 +246,7 @@ class Upgrade(ObjectMovable):
                     if player.ship_rarity == "common":
                         player.ship_rarity = "uncommon"
                         player.new_ship = True
+                        player.refill_health = True
                         break
 
                     else:
@@ -255,11 +256,13 @@ class Upgrade(ObjectMovable):
                     if player.ship_rarity == "common":
                         player.ship_rarity = "uncommon"
                         player.new_ship = True
+                        player.refill_health = True
                         break
 
                     elif player.ship_rarity == "uncommon":
                         player.ship_rarity = "rare"
                         player.new_ship = True
+                        player.refill_health = True
                         break
 
                     else:
@@ -269,16 +272,19 @@ class Upgrade(ObjectMovable):
                     if player.ship_rarity == "common":
                         player.ship_rarity = "uncommon"
                         player.new_ship = True
+                        player.refill_health = True
                         break
 
                     elif player.ship_rarity == "uncommon":
                         player.ship_rarity = "rare"
                         player.new_ship = True
+                        player.refill_health = True
                         break
 
                     elif player.ship_rarity == "rare":
                         player.ship_rarity = "epic"
                         player.new_ship = True
+                        player.refill_health = True
                         break
 
                     else:
@@ -289,21 +295,25 @@ class Upgrade(ObjectMovable):
                     if player.ship_rarity == "common":
                         player.ship_rarity = "uncommon"
                         player.new_ship = True
+                        player.refill_health = True
                         break
 
                     elif player.ship_rarity == "uncommon":
                         player.ship_rarity = "rare"
                         player.new_ship = True
+                        player.refill_health = True
                         break
 
                     elif player.ship_rarity == "rare":
                         player.ship_rarity = "epic"
                         player.new_ship = True
+                        player.refill_health = True
                         break
 
                     elif player.ship_rarity == "epic":
                         player.ship_rarity = "legendary"
                         player.new_ship = True
+                        player.refill_health = True
                         break
 
                     else:

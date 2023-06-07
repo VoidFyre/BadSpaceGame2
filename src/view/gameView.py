@@ -71,6 +71,9 @@ class GameView():
         self.draw_background()
         self.game_state.player.render(self.window)
 
+        pygame.event.set_grab(True)
+        pygame.mouse.set_pos(500, 500)
+
         big_font = self.get_font(100)
 
         if self.game_state.game_start_timer >= 120:
